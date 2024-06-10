@@ -68,6 +68,7 @@ class User extends Database
         session_start();
         $_SESSION['username'] = $user['username'];
         $_SESSION['email'] = $user['email'];
+        $_SESSION['role'] = $user['role'];
         header("Location: index.php");
         die();
       }

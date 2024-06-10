@@ -60,7 +60,7 @@ if (isset($_POST['registration'])) {
               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
               required="">
           </div>
-          <div class="flex items-start">
+          <!-- <div class="flex items-start">
             <div class="flex items-center h-5">
               <input id="terms" aria-describedby="terms" type="checkbox"
                 class="w-4 h-4 border border-gray-300 rounded bg-gray-50 cursor-pointer focus:ring-3 focus:ring-primary-300"
@@ -71,7 +71,7 @@ if (isset($_POST['registration'])) {
                   class="font-medium text-primary-600 cursor-pointer hover:underline" href="#">Terms and
                   Conditions</a></label>
             </div>
-          </div>
+          </div> -->
           <button type="submit" name="registration"
             class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
             Create an account

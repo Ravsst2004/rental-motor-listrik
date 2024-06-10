@@ -1,12 +1,17 @@
 <?php
 require_once 'app/User.php';
+require_once 'app/Roles.php';
 
+// check if user is login
 session_start();
 $user = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
 
+// check if user is logout
 if (isset($_POST['logout'])) {
   $User->logout();
 }
+
 
 ?>
 
@@ -32,7 +37,7 @@ if (isset($_POST['logout'])) {
             aria-current="page">Home</a>
         </li>
         <li>
-          <a href="#"
+          <a href="service.php"
             class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Services</a>
         </li>
         <li>
@@ -57,12 +62,11 @@ if (isset($_POST['logout'])) {
             <div id="dropdownNavbar"
               class="z-10 hidden absolute font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
               <ul class="py-2 text-sm  text-gray-700" aria-labelledby="dropdownLargeButton">
-                <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
-                </li>
-                <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100">Settings</a>
-                </li>
+                <?php if ($user && $role == ROLE_ADMIN): ?>
+                  <li>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
+                  </li>
+                <?php endif; ?>
                 <li>
                   <a href="#" class="block px-4 py-2 hover:bg-gray-100">Earnings</a>
                 </li>
