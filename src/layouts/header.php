@@ -50,7 +50,9 @@ function getTitle()
 
   // Daftar URL untuk admin yang memerlukan sidebar
   $admin_url = [
-    '/rental-motor-listrik/admin-dashboard.php'
+    '/rental-motor-listrik/admin-dashboard.php',
+    '/rental-motor-listrik/motor.php',
+    '/rental-motor-listrik/location.php',
   ];
 
   // Periksa apakah URL saat ini ada di dalam daftar URL yang dikecualikan
