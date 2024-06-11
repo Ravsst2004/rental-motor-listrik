@@ -64,7 +64,7 @@ if (isset($_POST['logout'])) {
               <ul class="py-2 text-sm  text-gray-700" aria-labelledby="dropdownLargeButton">
                 <?php if ($user && $role == ROLE_ADMIN): ?>
                   <li>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
+                    <a href="admin-dashboard.php" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
                   </li>
                 <?php endif; ?>
                 <li>

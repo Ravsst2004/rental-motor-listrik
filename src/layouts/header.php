@@ -3,8 +3,11 @@ function getTitle()
 {
   // Array of titles mapped to their respective URLs
   $titles = [
-    '/rental-motor-listrik' . '/' => 'Home',
+    '/rental-motor-listrik/' => 'Home',
     '/rental-motor-listrik/login.php' => 'Login',
+    '/rental-motor-listrik/registration.php' => 'Registration',
+    '/rental-motor-listrik/admin_dashboard.php' => 'Admin Dashboard',
+    // Tambahkan judul lainnya sesuai kebutuhan
   ];
 
   // Get the current request URI
@@ -28,7 +31,9 @@ function getTitle()
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
 </head>
 
 <body class="font-poppins">
@@ -43,8 +48,18 @@ function getTitle()
     '/rental-motor-listrik/registration.php'
   ];
 
+  // Daftar URL untuk admin yang memerlukan sidebar
+  $admin_url = [
+    '/rental-motor-listrik/admin-dashboard.php'
+  ];
+
   // Periksa apakah URL saat ini ada di dalam daftar URL yang dikecualikan
-  if (!in_array($current_url, $not_url)) {
+  if (!in_array($current_url, $not_url) && !in_array($current_url, $admin_url)) {
     include 'navbar.php';
+  }
+
+  // Periksa apakah URL saat ini ada di dalam daftar URL admin
+  if (in_array($current_url, $admin_url)) {
+    include 'sidebar.php';
   }
   ?>
