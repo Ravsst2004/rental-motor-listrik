@@ -1,15 +1,269 @@
 <?php
 require_once 'src/layouts/header.php';
 require_once 'app/Motorcycle.php';
+require_once 'app/Location.php';
 
+$motorcycles = $Motorcycle->getMotorcycles();
+$locations = $Location->getLocations();
 
+if (isset($_POST['add_motorcycles'])) {
+  if ($Motorcycle->addMotorcycles($_POST)) {
+    echo "<script>
+      alert('Motorcycle added successfully');
+      window.location.href = 'motor.php';
+    </script>";
+  }
+}
+
+if (isset($_POST["edit_motorcycle"])) {
+  if ($Motorcycle->updateMotorcycles($_POST)) {
+    echo "<script>
+      alert('Motorcycle updated successfully');
+      window.location.href = 'motor.php';
+    </script>";
+  }
+}
 ?>
 
 <div class="p-4 sm:ml-64">
-  <div class="flex w-full">
-    <div class="w-[40%]">1</div>
-    <div class="w-[60%]">2</div>
+  <div class="flex w-full gap-x-5">
+    <!-- Form Add Motorcycle -->
+    <div class="w-[30%]">
+      <div class="w-full">
+        <form class="bg-white shadow-md border border-slate-200 rounded px-8 pt-6 pb-8 mb-4" method="POST">
+          <!-- Input for Merk -->
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="merk">Merk</label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="merk" name="merk" type="text" placeholder="Enter merk">
+          </div>
+          <!-- Input for Model -->
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="model">Model</label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="model" name="model" type="text" placeholder="Enter model">
+          </div>
+          <!-- Input for Year -->
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="year">Year</label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="year" name="year" type="number" placeholder="Enter year">
+          </div>
+          <!-- Input for Hourly Rental Price -->
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="hourly_rental_price">Hourly Rental
+              Price</label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="hourly_rental_price" name="hourly_rental_price" type="number" placeholder="Enter hourly rental price">
+          </div>
+          <!-- Dropdown for Lokasi -->
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="location">Lokasi</label>
+            <select
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="location" name="location_id">
+              <?php foreach ($locations as $location): ?>
+                <option value="<?= $location['location_id'] ?>"><?= $location['location_name'] ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <!-- Submit Button -->
+          <div class="flex items-center justify-between">
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              name="add_motorcycles" type="submit">
+              Add Motorcycle
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Table Location List -->
+    <div class="w-[70%]">
+      <div class="overflow-x-auto border border-slate-200 rounded-md shadow-md">
+        <h1 class="text-2xl px-5 py-2 font-bold leading-tight tracking-tight text-gray-900 ">Motorcycle List</h1>
+        <hr>
+        <div class="mx-5 border border-slate-200 rounded-md my-2">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  ID Motorcycle</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Merk</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Model</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Year</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Hourly Rental Price</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Status</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Location</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Action</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <?php foreach ($motorcycles as $motorcycle): ?>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900"><?= $motorcycle['motorcycle_id'] ?></div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900"><?= $motorcycle['merk'] ?></div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900"><?= $motorcycle['model'] ?></div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900"><?= $motorcycle['year'] ?></div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900"><?= $motorcycle['hourly_rental_price'] ?></div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900"><?= $motorcycle['status'] == 1 ? 'Tersedia' : 'Tidak Tersedia' ?>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900"><?= $motorcycle['location_name'] ?></div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap flex gap-x-2">
+                    <a class="btnModalEditLocation bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                      data-motorcycle-id="<?= $motorcycle['motorcycle_id'] ?>"
+                      data-motorcycle-merk="<?= $motorcycle['merk'] ?>"
+                      data-motorcycle-model="<?= $motorcycle['model'] ?>"
+                      data-motorcycle-year="<?= $motorcycle['year'] ?>"
+                      data-motorcycle-hourly-rental-price="<?= $motorcycle['hourly_rental_price'] ?>"
+                      data-motorcycle-status="<?= $motorcycle['status'] ?>"
+                      data-motorcycle-location="<?= $motorcycle['location_id'] ?>">
+                      Edit
+                    </a>
+                    <a href="functions/motorcycle_delete.php?motorcycle_id=<?= $motorcycle['motorcycle_id'] ?>"
+                      onclick="return confirm('Are you sure you want to delete this motorcycle?')"
+                      class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                      Delete
+                    </a>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
+<!-- Modal Edit Motorcycle -->
+<div id="modalEditLocation"
+  class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-50 hidden">
+  <div class="bg-white rounded-lg shadow-lg w-1/3">
+    <div class="flex items-center justify-between bg-gray-200 px-6 py-4">
+      <h2 class="text-lg font-semibold">Edit Motorcycle</h2>
+      <button id="closeModalEditLocation" class="text-gray-600 hover:text-gray-800 focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="p-6">
+      <!-- Form Edit Motorcycle -->
+      <form id="formEditLocation" method="POST">
+        <input type="hidden" id="edit_motorcycle_id" name="edit_motorcycle_id">
+
+        <!-- Input for Merk -->
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="edit_merk">Merk</label>
+          <input type="text" id="edit_merk" name="edit_merk"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter merk">
+        </div>
+
+        <!-- Input for Model -->
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="edit_model">Model</label>
+          <input type="text" id="edit_model" name="edit_model"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter model">
+        </div>
+
+        <!-- Input for Year -->
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="edit_year">Year</label>
+          <input type="number" id="edit_year" name="edit_year"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter year">
+        </div>
+
+        <!-- Input for Hourly Rental Price -->
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="edit_hourly_rental_price">Hourly Rental
+            Price</label>
+          <input type="number" id="edit_hourly_rental_price" name="edit_hourly_rental_price"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter hourly rental price">
+        </div>
+
+        <!-- Dropdown for Lokasi -->
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="edit_location">Lokasi</label>
+          <select id="edit_location" name="edit_location_id"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <?php foreach ($locations as $location): ?>
+              <option value="<?= $location['location_id'] ?>"><?= $location['location_name'] ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex items-center justify-between">
+          <button type="submit" name="edit_motorcycle"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modalEditLocation = document.getElementById('modalEditLocation');
+  const closeModalEditLocation = document.getElementById('closeModalEditLocation');
+  const editButtons = document.querySelectorAll('.btnModalEditLocation');
+
+  editButtons.forEach(button => {
+    button.addEventListener('click', (event) => {
+      modalEditLocation.classList.remove('hidden');
+
+      const motorcycleId = button.getAttribute('data-motorcycle-id');
+      const motorcycleMerk = button.getAttribute('data-motorcycle-merk');
+      const motorcycleModel = button.getAttribute('data-motorcycle-model');
+      const motorcycleYear = button.getAttribute('data-motorcycle-year');
+      const motorcycleHourlyRentalPrice = button.getAttribute('data-motorcycle-hourly-rental-price');
+      const motorcycleStatus = button.getAttribute('data-motorcycle-status');
+      const motorcycleLocation = button.getAttribute('data-motorcycle-location');
+
+      document.getElementById('edit_motorcycle_id').value = motorcycleId;
+      document.getElementById('edit_merk').value = motorcycleMerk;
+      document.getElementById('edit_model').value = motorcycleModel;
+      document.getElementById('edit_year').value = motorcycleYear;
+      document.getElementById('edit_hourly_rental_price').value = motorcycleHourlyRentalPrice;
+      document.getElementById('edit_location').value = motorcycleLocation;
+    });
+  });
+
+  closeModalEditLocation.addEventListener('click', (event) => {
+    modalEditLocation.classList.add('hidden');
+  });
+</script>
 
 <?php require_once 'src/layouts/footer.php'; ?>

@@ -10,7 +10,6 @@ if ($user == null || $role != 1) {
   header("Location: /rental-motor-listrik/");
   exit();
 }
-// if (!$user) 
 
 // check if user is logout
 if (isset($_POST['logout'])) {
@@ -34,11 +33,12 @@ if (isset($_POST['logout'])) {
         <ul
           class="flex flex-col font-medium p-4 md:p-0 mt-4 border items-center border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
           <li>
-            <a href="#" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0"
+            <a href="service.php"
+              class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
               aria-current="page">Service</a>
           </li>
           <li>
-            <a href="service.php"
+            <a href=""
               class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">History</a>
           </li>
         </ul>
@@ -47,7 +47,8 @@ if (isset($_POST['logout'])) {
   </div>
 </nav>
 
-<!-- <aside id="logo-sidebar"
+
+<aside id="logo-sidebar"
   class="fixed top-0 left-0 z-40 w-64 h-screen pt-4 text-slate-100 transition-transform -translate-x-full bg-blue-700 border-r  sm:translate-x-0"
   aria-label="Sidebar">
   <div class="h-full px-3 pb-4 overflow-y-auto bg-blue-700">
@@ -107,7 +108,7 @@ if (isset($_POST['logout'])) {
       </li>
     </ul>
   </div>
-</aside> -->
+</aside>
 
 
 
