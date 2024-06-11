@@ -1,6 +1,11 @@
 <?php
 require_once "app/User.php";
 
+// check if user is login
+session_start();
+if (isset($_SESSION['username']))
+  header("Location: index.php");
+
 if (isset($_POST['registration'])) {
   if ($User->registration($_POST)) {
     echo "

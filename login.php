@@ -1,12 +1,17 @@
 <?php
 require_once "app/User.php";
 
+// check if user is login
+session_start();
+if (isset($_SESSION['username']))
+  header("Location: index.php");
+
 if (isset($_POST['login'])) {
   if ($User->login($_POST)) {
     echo "
             <script>
                 alert('Login sukses');
-                document.location.href = 'dashboard.php';
+                document.location.href = 'index.php';
             </script>
         ";
   } else {
