@@ -6,8 +6,10 @@ require_once 'app/Location.php';
 $motorcycles = $Motorcycle->getMotorcycles();
 $locations = $Location->getLocations();
 
+// Add Motorcycle
 if (isset($_POST['add_motorcycles'])) {
   if ($Motorcycle->addMotorcycles($_POST)) {
+    include 'functions/generate_qr.php';
     echo "<script>
       alert('Motorcycle added successfully');
       window.location.href = 'motor.php';
@@ -17,12 +19,14 @@ if (isset($_POST['add_motorcycles'])) {
 
 if (isset($_POST["edit_motorcycle"])) {
   if ($Motorcycle->updateMotorcycles($_POST)) {
-    echo "<script>
+    "<script>
       alert('Motorcycle updated successfully');
       window.location.href = 'motor.php';
     </script>";
   }
 }
+
+
 
 
 // pagination

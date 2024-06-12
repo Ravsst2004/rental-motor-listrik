@@ -35,7 +35,7 @@ class Motorcycle extends Database
   {
     $merk = mysqli_real_escape_string($this->conn, $data['merk']);
     $model = mysqli_real_escape_string($this->conn, $data['model']);
-    $year = mysqli_real_escape_string($this->conn, $data['model']);
+    $year = mysqli_real_escape_string($this->conn, $data['year']);
     $hourly_rental_price = mysqli_real_escape_string($this->conn, $data['hourly_rental_price']);
     $status = 1;
     $location = mysqli_real_escape_string($this->conn, $data['location_id']);
@@ -47,9 +47,20 @@ class Motorcycle extends Database
 
   public function deleteMotorcycles($motorcycle_id)
   {
-    $query = "DELETE FROM $this->tb_name WHERE motorcycle_id = $motorcycle_id";
+    $query = "SELECT merk, model FROM $this->tb_name WHERE motorcycle_id = $motorcycle_id";
     $result = $this->conn->query($query);
-    return $result;
+    $motorcycle = $result->fetch_assoc();
+
+    if ($motorcycle) {
+      $filename = "../src/image/" . $motorcycle['merk'] . "-" . $motorcycle['model'] . ".png";
+      if (file_exists($filename)) {
+        unlink($filename);
+      }
+      $deleteQuery = "DELETE FROM $this->tb_name WHERE motorcycle_id = $motorcycle_id";
+      $deleteResult = $this->conn->query($deleteQuery);
+      return $deleteResult;
+    }
+    return false;
   }
 
   public function getMotorcyclesWithPagination($motorcycle_per_page, $offset)
