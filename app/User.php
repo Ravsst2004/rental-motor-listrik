@@ -95,6 +95,21 @@ class User extends Database
     header("Location: /rental-motor-listrik/");
   }
 
+
+  // Di dalam kelas User
+  public function getUsersWithPagination($limit, $offset)
+  {
+    $sql = "SELECT * FROM users LIMIT $limit OFFSET $offset";
+    $result = $this->conn->query($sql);
+    $rows = [];
+    if ($result && $result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        $rows[] = $row;
+      }
+    }
+    return $rows;
+  }
+
 }
 
 $User = new User();
