@@ -21,6 +21,20 @@ if (isset($_POST['add_location'])) {
     </script>";
   }
 }
+
+
+// Pagination
+$total_locations = count($locations);
+$locations_per_page = 8;
+$total_pages = ceil($total_locations / $locations_per_page);
+$current_page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+if ($current_page < 1) {
+  $current_page = 1;
+} elseif ($current_page > $total_pages) {
+  $current_page = $total_pages;
+}
+$offset = ($current_page - 1) * $locations_per_page;
+$locations = $Location->getlocationsWithPagination($locations_per_page, $offset);
 ?>
 
 <div class="p-4 sm:ml-64">
@@ -67,7 +81,7 @@ if (isset($_POST['add_location'])) {
             <thead class="bg-gray-50">
               <tr>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  ID Lokasi
+                  No
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Nama Lokasi
@@ -81,10 +95,11 @@ if (isset($_POST['add_location'])) {
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
+              <?php $number = ($current_page - 1) * $locations_per_page + 1; ?>
               <?php foreach ($locations as $location): ?>
                 <tr>
                   <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900"><?= $location['location_id'] ?></div>
+                    <div class="text-sm text-gray-900"><?= $number++ ?></div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="text-sm text-gray-900"><?= $location['location_name'] ?></div>
@@ -111,7 +126,21 @@ if (isset($_POST['add_location'])) {
           </table>
         </div>
       </div>
-
+      <!-- Pagination button -->
+      <div class="flex gap-x-4 mt-4">
+        <div>
+          <?php if ($current_page > 1): ?>
+            <a href="?page=<?= $current_page - 1 ?>"
+              class="text-slate-100 rounded-lg p-2 border bg-blue-700 hover:bg-blue-900">Previous</a>
+          <?php endif; ?>
+        </div>
+        <div>
+          <?php if ($current_page < $total_pages): ?>
+            <a href="?page=<?= $current_page + 1 ?>"
+              class="text-slate-100 rounded-lg p-2 border bg-blue-700 hover:bg-blue-900">Next</a>
+          <?php endif; ?>
+        </div>
+      </div>
     </div>
 
   </div>

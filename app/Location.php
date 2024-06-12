@@ -19,6 +19,16 @@ class Location extends Database
     return $rows;
   }
 
+  public function getLocationsWithPagination($locations_per_page, $offset)
+  {
+    $result = $this->conn->query("SELECT * FROM $this->tb_name LIMIT $locations_per_page OFFSET $offset");
+    $rows = [];
+    while ($data = mysqli_fetch_assoc($result)) {
+      $rows[] = $data;
+    }
+    return $rows;
+  }
+
   public function addLocation(array $data)
   {
     $location_name = mysqli_real_escape_string($this->conn, $data['location_name']);

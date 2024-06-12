@@ -52,6 +52,31 @@ class Motorcycle extends Database
     return $result;
   }
 
+  public function getMotorcyclesWithPagination($motorcycle_per_page, $offset)
+  {
+    $sql = "SELECT 
+    t.*, 
+    l.location_name, 
+    l.location_address 
+FROM 
+    $this->tb_name t
+JOIN 
+    locations l 
+ON 
+    t.location_id = l.location_id
+LIMIT 
+    $motorcycle_per_page 
+OFFSET 
+    $offset;
+";
+    $result = $this->conn->query($sql);
+    $rows = [];
+    while ($data = mysqli_fetch_assoc($result)) {
+      $rows[] = $data;
+    }
+    return $rows;
+  }
+
   public function updateMotorcycles(array $data)
   {
     $motorcycle_id = mysqli_real_escape_string($this->conn, $data['edit_motorcycle_id']);

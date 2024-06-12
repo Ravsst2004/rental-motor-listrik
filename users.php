@@ -43,28 +43,30 @@ $users = $User->getUsersWithPagination($users_per_page, $offset);
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
-          <?php $number = 1 ?>
+          <?php $number = ($current_page - 1) * $users_per_page + 1; ?>
           <?php foreach ($users as $user): ?>
-            <tr>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900"><?= $user['user_id'] + 1 ?></div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900"><?= $user['username'] ?></div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900"><?= $user['email'] ?></div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900"><?= $user['fullname'] ?></div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900"><?= $user['address'] ?: '-' ?></div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900"><?= $user['phone'] ?></div>
-              </td>
-            </tr>
+            <?php if ($user['role'] == 2): ?>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-900"><?= $number++ ?></div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-900"><?= $user['username'] ?></div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-900"><?= $user['email'] ?></div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-900"><?= $user['fullname'] ?></div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-900"><?= $user['address'] ?: '-' ?></div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-900"><?= $user['phone'] ?></div>
+                </td>
+              </tr>
+            <?php endif ?>
           <?php endforeach; ?>
         </tbody>
       </table>

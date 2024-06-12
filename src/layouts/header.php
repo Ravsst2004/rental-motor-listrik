@@ -49,13 +49,15 @@ function getTitle()
   ];
 
   // Daftar URL untuk admin yang memerlukan sidebar
-  $user_page_pagination = $_GET['page'] ?? '';
+  $page_pagination = $_GET['page'] ?? '';
   $admin_url = [
     '/rental-motor-listrik/admin-dashboard.php',
     '/rental-motor-listrik/motor.php',
+    '/rental-motor-listrik/motor.php?page=' . $page_pagination,
     '/rental-motor-listrik/location.php',
+    '/rental-motor-listrik/location.php?page=' . $page_pagination,
     '/rental-motor-listrik/users.php',
-    '/rental-motor-listrik/users.php?page=' . $user_page_pagination,
+    '/rental-motor-listrik/users.php?page=' . $page_pagination,
   ];
 
   // Periksa apakah URL saat ini ada di dalam daftar URL yang dikecualikan
