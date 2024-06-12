@@ -53,6 +53,7 @@ function getTitle()
     '/rental-motor-listrik/admin-dashboard.php',
     '/rental-motor-listrik/motor.php',
     '/rental-motor-listrik/location.php',
+    '/rental-motor-listrik/users.php',
   ];
 
   // Periksa apakah URL saat ini ada di dalam daftar URL yang dikecualikan

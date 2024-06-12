@@ -14,6 +14,7 @@ class User extends Database
     $phone = stripcslashes($data['phone']);
     $username = stripcslashes($data['username']);
     $email = stripcslashes($data['email']);
+    $address = stripcslashes($data['address']);
     $password = mysqli_real_escape_string($this->conn, $data['password']);
     $confirm_password = mysqli_real_escape_string($this->conn, $data['confirm-password']);
 
@@ -44,7 +45,7 @@ class User extends Database
     // password hash
     $password = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO $this->tb_name (username, email, password, fullname, phone) VALUES ('$username', '$email', '$password', '$fullname', '$phone')";
+    $sql = "INSERT INTO $this->tb_name (username, email, password, fullname, address, phone) VALUES ('$username', '$email', '$password', '$fullname', '$address', '$phone')";
     if ($this->conn->query($sql) === TRUE) {
       echo "Registration successfully";
       return true;
@@ -74,6 +75,16 @@ class User extends Database
       }
     }
     return false;
+  }
+
+  public function getUsers()
+  {
+    $result = $this->conn->query("SELECT * FROM $this->tb_name");
+    $rows = [];
+    while ($data = mysqli_fetch_assoc($result)) {
+      $rows[] = $data;
+    }
+    return $rows;
   }
 
   public function logout()
