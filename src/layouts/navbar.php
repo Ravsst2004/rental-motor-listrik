@@ -11,16 +11,14 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
 if (isset($_POST['logout'])) {
   $User->logout();
 }
-
-
 ?>
 
 <nav class="bg-white border-gray-200 border-b-2">
-  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4 px-6 md:px-10 xl:px-0">
     <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
-      <span class="self-center text-2xl font-bold whitespace-nowrap">Yayan ElectricBikes</span>
+      <span class="self-center text-2xl font-bold whitespace-nowrap">E-Moto Rentals</span>
     </a>
-    <button data-collapse-toggle="navbar-dropdown" type="button"
+    <button data-collapse-toggle="navbar-dropdown" type="button" id="navbar-dropdown-button"
       class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
       aria-controls="navbar-dropdown" aria-expanded="false">
       <span class="sr-only">Open main menu</span>
@@ -31,7 +29,7 @@ if (isset($_POST['logout'])) {
     </button>
     <div class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
       <ul
-        class="flex flex-col font-medium p-4 md:p-0 mt-4 border items-center border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
+        class="flex flex-col font-medium p-4 md:p-0 mt-4 border md:items-center border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
         <li>
           <a href="#" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0"
             aria-current="page">Home</a>
@@ -94,9 +92,19 @@ if (isset($_POST['logout'])) {
 </nav>
 
 <script>
-  const dropdownNavbarLink = document.querySelector('#dropdownNavbarLink');
-  const dropdownNavbar = document.querySelector('#dropdownNavbar');
-  dropdownNavbarLink.addEventListener("click", () => {
-    dropdownNavbar.classList.toggle("hidden");
-  })
+  document.addEventListener("DOMContentLoaded", () => {
+    const dropdownNavbarLink = document.querySelector('#dropdownNavbarLink');
+    const dropdownNavbar = document.querySelector('#dropdownNavbar');
+    if (dropdownNavbarLink) {
+      dropdownNavbarLink.addEventListener("click", () => {
+        dropdownNavbar.classList.toggle("hidden");
+      });
+    }
+
+    const navbarDropdown = document.querySelector('#navbar-dropdown');
+    const navbarDropdownButton = document.querySelector('#navbar-dropdown-button');
+    navbarDropdownButton.addEventListener("click", () => {
+      navbarDropdown.classList.toggle("hidden");
+    });
+  });
 </script>
