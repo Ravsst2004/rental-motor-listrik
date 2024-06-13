@@ -52,7 +52,7 @@ class Motorcycle extends Database
     $motorcycle = $result->fetch_assoc();
 
     if ($motorcycle) {
-      $filename = "../src/image/" . $motorcycle['merk'] . "-" . $motorcycle['model'] . ".png";
+      $filename = "../src/image/qr_code/" . $motorcycle['merk'] . "-" . $motorcycle['model'] . ".png";
       if (file_exists($filename)) {
         unlink($filename);
       }

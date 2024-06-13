@@ -18,6 +18,6 @@ foreach ($motorcycles as $motorcycle) {
   $motorcycle_model = $motorcycle['model'];
 
   $data = "motorcycle_id:$motorcycle_id";
-  $filename = "src/image/$motorcycle_merk-$motorcycle_model.png";
+  $filename = "src/image/qr_code/$motorcycle_merk-$motorcycle_model.png";
   generateQRCode($data, $filename);
 }
