@@ -6,14 +6,13 @@ session_start();
 if (isset($_SESSION['username']))
   header("Location: index.php");
 
+$success = false;
+$error = false;
 if (isset($_POST['registration'])) {
   if ($User->registration($_POST)) {
-    echo "
-            <script>
-                alert('Registrasi sukses');
-                document.location.href = 'login.php';
-            </script>
-        ";
+    $success = true;
+  } else {
+    $error = true;
   }
 }
 
@@ -22,6 +21,21 @@ if (isset($_POST['registration'])) {
 <?php require_once 'src/layouts/header.php'; ?>
 
 <section class="bg-gray-50">
+
+  <?php if ($success): ?>
+    <div
+      class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 absolute top-[4%] left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+      role="alert">
+      <p class="font-bold">Success</p>
+      <p>Your account succefuly registered</p>
+    </div>
+    <script>
+      setTimeout(function () {
+        window.location.href = 'login.php';
+      }, 1000);
+    </script>
+  <?php endif; ?>
+
   <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
     <div class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
       <div class="p-6 space-y-4 md:space-y-6 sm:p-8">

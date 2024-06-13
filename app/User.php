@@ -47,7 +47,6 @@ class User extends Database
 
     $sql = "INSERT INTO $this->tb_name (username, email, password, fullname, address, phone) VALUES ('$username', '$email', '$password', '$fullname', '$address', '$phone')";
     if ($this->conn->query($sql) === TRUE) {
-      echo "Registration successfully";
       return true;
     } else {
       echo "Error: " . $sql . "<br>" . $this->conn->error;
