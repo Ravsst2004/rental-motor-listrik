@@ -37,6 +37,15 @@
         electric motorcycles. Whether you're a tourist looking to explore the city in a fun and sustainable way, or a
         local in need of a convenient and eco-friendly commuting option, our electric motorcycles are the perfect
         solution.</p>
+      <?php if ($user): ?>
+        <a href="service.php"
+          class="text-lg text-slate-800 font-semibold bg-slate-50 w-fit px-2 rounded-lg hover:bg-slate-800 hover:text-slate-50">Rent
+          Now!</a>
+      <?php elseif (!$user): ?>
+        <a href="registration.php"
+          class="text-lg text-slate-800 font-semibold bg-slate-50 w-fit px-2 rounded-lg hover:bg-slate-800 hover:text-slate-50">Register
+          now for rent!</a>
+      <?php endif ?>
     </div>
     <div class="hidden xl:flex w-[40%] items-center justify-center">
       <img src="src/image/web-source/traveling.svg" alt="" width="80%">
