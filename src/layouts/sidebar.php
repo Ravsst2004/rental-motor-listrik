@@ -106,6 +106,21 @@ if (isset($_POST['logout'])) {
           <span class="flex-1 ms-3 whitespace-nowrap">Users</span>
         </a>
       </li>
+      <li>
+        <a href="rent-motorcycle.php" class="flex items-center p-2 rounded-lg text-white hover:bg-blue-900 group">
+          <svg
+            class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+            viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linejoin="round" stroke-width="2"
+              d="M4 4h6v6H4V4Zm10 10h6v6h-6v-6Zm0-10h6v6h-6V4Zm-4 10h.01v.01H10V14Zm0 4h.01v.01H10V18Zm-3 2h.01v.01H7V20Zm0-4h.01v.01H7V16Zm-3 2h.01v.01H4V18Zm0-4h.01v.01H4V14Z" />
+            <path stroke="currentColor" stroke-linejoin="round" stroke-width="2"
+              d="M7 7h.01v.01H7V7Zm10 10h.01v.01H17V17Z" />
+          </svg>
+
+          <span class="flex-1 ms-3 whitespace-nowrap">Scan QR</span>
+        </a>
+      </li>
     </ul>
   </div>
 </aside>

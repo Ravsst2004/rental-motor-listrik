@@ -1,28 +1,29 @@
-<!-- <footer class="bg-blue-700 mt-36 fixed bottom-0 w-full left-0">
-    <div class="container py-5 mx-auto">
+<!-- Instascan Library untuk pemindaian QR Code -->
+<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+<script>
+  // Inisialisasi Instascan
+  const scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
 
-      <hr class="my-10 border-gray-200" />
+  // Mengaktifkan pemindaian QR code
+  scanner.addListener('scan', function (content) {
+    document.getElementById('qr_code').value = content; // Set hasil scan ke input qr_code
+  });
 
-      <div class="flex flex-col items-center sm:flex-row sm:justify-between">
-        <p class="text-sm text-white">© Copyright 2021. All Rights Reserved.</p>
-
-        <div class="flex mt-3 -mx-2 sm:mt-0">
-          <a href="#" class="mx-2 text-sm text-white transition-colors duration-300 hover:text-gray-300" aria-label="Reddit"> Teams </a>
-
-          <a href="#" class="mx-2 text-sm text-white transition-colors duration-300 hover:text-gray-300" aria-label="Reddit"> Privacy </a>
-
-          <a href="#" class="mx-2 text-sm text-white transition-colors duration-300 hover:text-gray-300" aria-label="Reddit"> Cookies </a>
-        </div>
-      </div>
-    </div>
-  </footer> -->
-
-
-
-
+  // Memulai pemindaian saat kamera siap
+  Instascan.Camera.getCameras().then(function (cameras) {
+    if (cameras.length > 0) {
+      console.log('Kamera yang terdeteksi:', cameras); // Log kamera yang terdeteksi
+      scanner.start(cameras[0]); // Menggunakan kamera pertama yang tersedia
+    } else {
+      console.error('Tidak ada kamera yang terdeteksi.');
+    }
+  }).catch(function (e) {
+    console.error('Gagal mendapatkan kamera:', e);
+  });
+</script>
 
 
 
-<!-- <script src="/src/js/main.js"></script> -->
 </body>
+
 </html>
