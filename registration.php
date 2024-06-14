@@ -1,11 +1,10 @@
 <?php
 require_once "app/User.php";
 
-// check if user is logged in
 session_start();
 if (isset($_SESSION['username'])) {
   header("Location: index.php");
-  exit; // stop further execution
+  exit;
 }
 
 $success = false;
@@ -20,7 +19,7 @@ if (isset($_POST['registration'])) {
   }
 }
 ?>
-
+  
 
 <?php require_once 'src/layouts/header.php'; ?>
 

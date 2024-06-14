@@ -94,7 +94,6 @@ class User extends Database
     return true;
   }
 
-
   public function login(array $data)
   {
     $username = htmlspecialchars($data['username']);
@@ -107,8 +106,8 @@ class User extends Database
       $user = $result->fetch_assoc();
       if (password_verify($password, $user['password'])) {
         session_start();
+        $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['username'] = $user['username'];
-        $_SESSION['email'] = $user['email'];
         $_SESSION['role'] = $user['role'];
         header("Location: index.php");
         die();

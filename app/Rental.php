@@ -11,35 +11,40 @@ class Rental extends Database
     parent::__construct();
   }
 
-  public function rentalMotorcyclesByID($motorcycle_id, $customer_name, $rental_duration)
+  public function rentalMotorcyclesByID($motorcycle_id, $user_id)
   {
-    // Validasi ketersediaan motor
-    if (!$this->isMotorcycleAvailable($motorcycle_id)) {
-      return "Motorcycle dengan ID $motorcycle_id tidak tersedia untuk disewa.";
-    }
+    // Periksa ketersediaan sepeda motor
+    $queryCheck = "SELECT status FROM $this->tb_motorcycle WHERE motorcycle_id = '$motorcycle_id'";
+    $resultCheck = $this->conn->query($queryCheck);
 
-    $query = "INSERT INTO $this->tb_rentals (motorcycle_id, customer_name, rental_duration) VALUES ('$motorcycle_id', '$customer_name', '$rental_duration')";
-    $result = $this->conn->query($query);
-
-    if ($result) {
-      return "Motorcycle berhasil disewa oleh $customer_name";
-    } else {
-      return "Gagal menyewa motorcycle";
-    }
-  }
-
-  private function isMotorcycleAvailable($motorcycle_id)
-  {
-    $query = "SELECT status FROM $this->tb_motorcycle WHERE motorcycle_id = '$motorcycle_id'";
-    $result = $this->conn->query($query);
-
-    if ($result->num_rows > 0) {
-      $data = $result->fetch_assoc();
+    if ($resultCheck && $resultCheck->num_rows > 0) {
+      $data = $resultCheck->fetch_assoc();
       $status = $data['status'];
-      return $status == 1;
+
+      // Jika sepeda motor tersedia
+      if ($status == 1) {
+        // Simpan waktu sewa
+        $current_time = date('Y-m-d H:i:s');
+
+        // Lakukan penyewaan
+        $queryRent = "INSERT INTO $this->tb_rentals (user_id, motorcycle_id, waktu_sewa) VALUES ('$user_id', '$motorcycle_id', '$current_time')";
+        $resultRent = $this->conn->query($queryRent);
+
+        if ($resultRent) {
+          return true; // Jika berhasil menyewa
+        } else {
+          return "Gagal menyewa motorcycle";
+        }
+      } else {
+        // return "Motorcycle dengan ID $motorcycle_id tidak tersedia untuk disewa.";
+        return false;
+      }
+    } else {
+      return "Motorcycle dengan ID $motorcycle_id tidak ditemukan.";
     }
-    return false;
   }
+
+
 }
 
 $Rental = new Rental();

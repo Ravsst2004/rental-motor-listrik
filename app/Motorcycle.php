@@ -45,6 +45,14 @@ class Motorcycle extends Database
     return $result;
   }
 
+  public function updateMotorcyclesStatus($motorcycle_id, $status)
+  {
+    $query = "UPDATE $this->tb_name SET status = '$status' WHERE motorcycle_id = '$motorcycle_id'";
+    $result = $this->conn->query($query);
+    return $result;
+  }
+
+
   public function deleteMotorcycles($motorcycle_id)
   {
     $query = "SELECT merk, model FROM $this->tb_name WHERE motorcycle_id = $motorcycle_id";
