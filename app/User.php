@@ -10,49 +10,90 @@ class User extends Database
 
   public function registration(array $data)
   {
-    $fullname = stripcslashes($data['fullname']);
-    $phone = stripcslashes($data['phone']);
-    $username = stripcslashes($data['username']);
-    $email = stripcslashes($data['email']);
-    $address = stripcslashes($data['address']);
+    $fullname = mysqli_real_escape_string($this->conn, $data['fullname']);
+    $phone = mysqli_real_escape_string($this->conn, $data['phone']);
+    $username = mysqli_real_escape_string($this->conn, $data['username']);
+    $email = mysqli_real_escape_string($this->conn, $data['email']);
     $password = mysqli_real_escape_string($this->conn, $data['password']);
     $confirm_password = mysqli_real_escape_string($this->conn, $data['confirm-password']);
+    $address = mysqli_real_escape_string($this->conn, $data['address']);
 
-    // check if password matches with confirm password
-    if ($password !== $confirm_password) {
-      // return false;
-      die('Password does not match');
+    $result = $this->registrationValidation($fullname, $phone, $username, $email, $password, $confirm_password);
+    if ($result === true) {
+      $password = password_hash($password, PASSWORD_DEFAULT);
+      $sql = "INSERT INTO $this->tb_name (username, email, password, fullname, address, phone) VALUES ('$username', '$email', '$password', '$fullname', '$address', '$phone')";
+      if ($this->conn->query($sql)) {
+        return true;
+      } else {
+        echo "Error: " . $sql . "<br>" . $this->conn->error;
+      }
+    } else {
+      return $result;
     }
+  }
 
-    // check if username already exists
+  public function registrationValidation($fullname, $phone, $username, $email, $password, $confirm_password)
+  {
+    // Validasi semua Input
+    if (empty($fullname) || empty($phone) || empty($username) || empty($email) || empty($password) || empty($confirm_password))
+      return 'All fields are required';
+
+    // Validasi Fullname (kosong, panjang max)
+    if (empty($fullname))
+      return 'Fullname cannot be empty';
+    if (strlen($fullname) > 256)
+      return 'Fullname must be less than 256 characters';
+
+    // Validasi panjang phone (kosong, panjang min max, exist in database)
+    if (empty($phone))
+      return 'Phone number cannot be empty';
+    if (strlen($phone) < 10 || strlen($phone) > 20)
+      return 'Phone number must be between 10 and 20 characters';
+    if (strpos($phone, ' ') !== false)
+      return 'Phone number must not contain spaces';
+    if (!is_numeric($phone))
+      return 'Phone number must be a number';
+    $sql = "SELECT * FROM $this->tb_name WHERE phone = '$phone'";
+    $result = $this->conn->query($sql);
+    if ($result->num_rows > 0)
+      return 'Phone number already exists';
+
+    // Validasi Username (kosong, panjang min max, space, exist in database)
+    if (empty($username))
+      return 'Username cannot be empty';
+    if (strlen($username) < 5 || strlen($username) > 15)
+      return 'Username must be between 5 and 15 characters';
+    if (strpos($username, ' ') !== false)
+      return 'Username must not contain spaces';
     $sql = "SELECT * FROM $this->tb_name WHERE username = '$username'";
     $result = $this->conn->query($sql);
-    if ($result->num_rows > 0) {
-      // return false;
-      die('Username already exists');
-    }
+    if ($result->num_rows > 0)
+      return 'Username already exists';
 
-    // check if email already exists
+    // Validasi Email (kosong, panjang min max, exist in database)
+    if (empty($email))
+      return 'Email cannot be empty';
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+      return 'Invalid email format';
     $sql = "SELECT * FROM $this->tb_name WHERE email = '$email'";
     $result = $this->conn->query($sql);
-    if ($result->num_rows > 0) {
-      $user = $result->fetch_assoc();
-      if (password_verify($password, $user['password'])) {
+    if ($result->num_rows > 0)
+      return 'Email already exists';
 
-      }
+    // Validasi password and confirm password (kosong, panjang min max, exist in database)
+    if (empty($password))
+      return 'Password cannot be empty';
+    if (strlen($password) < 8 || strlen($password) > 20)
+      return 'Password must be between 8 and 20 characters';
+    if (empty($confirm_password))
+      return 'Confirm password cannot be empty';
+    if ($password !== $confirm_password) {
+      return 'Password does not match';
     }
 
-    // password hash
-    $password = password_hash($password, PASSWORD_DEFAULT);
-
-    $sql = "INSERT INTO $this->tb_name (username, email, password, fullname, address, phone) VALUES ('$username', '$email', '$password', '$fullname', '$address', '$phone')";
-    if ($this->conn->query($sql) === TRUE) {
-      return true;
-    } else {
-      echo "Error: " . $sql . "<br>" . $this->conn->error;
-    }
-
+    return true;
   }
+
 
   public function login(array $data)
   {
@@ -94,8 +135,6 @@ class User extends Database
     header("Location: /rental-motor-listrik/");
   }
 
-
-  // Di dalam kelas User
   public function getUsersWithPagination($limit, $offset)
   {
     $sql = "SELECT * FROM users LIMIT $limit OFFSET $offset";
@@ -108,7 +147,6 @@ class User extends Database
     }
     return $rows;
   }
-
 }
 
 $User = new User();
