@@ -61,6 +61,7 @@ class Rental extends Database
 
   public function returnMotorcycle($rental_id)
   {
+    date_default_timezone_set('Asia/Makassar');
     $current_time = date('Y-m-d H:i:s');
     $query = "SELECT * FROM $this->tb_rentals WHERE rental_id = '$rental_id'";
     $result = $this->conn->query($query);
@@ -96,7 +97,7 @@ class Rental extends Database
     $result = $this->conn->query($query);
 
     if ($result) {
-      $query = "UPDATE $this->tb_motorcycle SET status = 0 WHERE motorcycle_id = '$motorcycle_id'";
+      $query = "UPDATE $this->tb_motorcycle SET status = 1 WHERE motorcycle_id = '$motorcycle_id'";
       $result = $this->conn->query($query);
 
       if ($result) {

@@ -9,7 +9,7 @@ $payments = $Payment->getPayments();
 ?>
 
 <div class="p-4 sm:ml-64">
-  <div class="grid grid-cols-2 gap-10 mt-14">
+  <div class="grid grid-cols-2 gap-4 mt-14">
     <?php foreach ($payments as $payment): ?>
       <?php if ($payment['status_pembayaran'] == 'berhasil'): ?>
         <div class="h-fit rounded-md border-4 border-l-green-500  p-5 flex flex-col gap-y-2 border-gray-50 shadow-lg">
@@ -48,7 +48,7 @@ $payments = $Payment->getPayments();
   <div class="grid grid-cols-2 gap-4 mt-14">
     <?php foreach ($rentals as $rental): ?>
       <?php if ($rental['status_pembayaran'] == 'pending'): ?>
-        <div class="h-fit rounded-md border-l-4 border-green-500 p-5 flex flex-col gap-y-2">
+        <div class="h-fit w-fit rounded-md border-l-4 border-green-500 p-5 flex flex-col gap-y-2">
           <span class="text-xs text-blue-600 uppercase">ID Transaksi: <?= $rental['rental_id'] ?></span>
           <h1 class="text-md">Customer name: <span class="font-light"><?= $rental['fullname'] ?></span></h1>
           <h1 class="text-md">Motorcycle: <span class="font-light"><?= $rental['merk'] ?> - <?= $rental['model'] ?></span>
@@ -66,8 +66,8 @@ $payments = $Payment->getPayments();
             <form action="functions/process_confirm_payment.php" method="POST">
               <input type="hidden" name="rental_id" value="<?= $rental['rental_id'] ?>">
               <input type="hidden" name="motorcycle_id" value="<?= $rental['motorcycle_id'] ?>">
-              <input type="hidden" name="motorcycle_id" value="<?= $rental['total_biaya'] ?>">
-              <input type="hidden" name="motorcycle_id" value="<?= $rental['waktu_kembali'] ?>">
+              <input type="hidden" name="total_biaya" value="<?= $rental['total_biaya'] ?>">
+              <input type="hidden" name="waktu_kembali" value="<?= $rental['waktu_kembali'] ?>">
               <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Approve
                 Payment</button>
             </form>

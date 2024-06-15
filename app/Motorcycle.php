@@ -52,7 +52,6 @@ class Motorcycle extends Database
     return $result;
   }
 
-
   public function deleteMotorcycles($motorcycle_id)
   {
     $query = "SELECT merk, model FROM $this->tb_name WHERE motorcycle_id = $motorcycle_id";
