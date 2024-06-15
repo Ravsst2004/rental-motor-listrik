@@ -30,6 +30,9 @@ $motorcycles = $Motorcycle->getMotorcycles();
   </div>
 </div>
 
+
+
+<!-- Modal -->
 <div id="modalRentMotorcycle"
   class="hidden fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
   <div class="bg-white rounded-lg shadow-lg max-w-sm w-full">

@@ -52,7 +52,7 @@ $rentals = $Rental->getRentedMotorcycle();
                 </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900" id="elapsed-time-<?= $index ?>"></div>
+                <!-- <div class="text-sm text-gray-900" id="elapsed-time-<?= $index ?>"></div>
                 <script>
                   function updateElapsedTime(startTime, elementId) {
                     const startDate = new Date(startTime);
@@ -77,7 +77,7 @@ $rentals = $Rental->getRentedMotorcycle();
                   const startTime = "<?= $rental['waktu_sewa'] ?>";
                   const elementId = "elapsed-time-<?= $index ?>";
                   updateElapsedTime(startTime, elementId);
-                </script>
+                </script> -->
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="text-sm text-gray-900">

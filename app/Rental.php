@@ -24,9 +24,8 @@ class Rental extends Database
       $data = $resultCheck->fetch_assoc();
       $status = $data['status'];
 
-      // Jika sepeda motor tersedia
       if ($status == 1) {
-        // Simpan waktu sewa
+        date_default_timezone_set('Asia/Makassar');
         $current_time = date('Y-m-d H:i:s');
 
         $queryRent = "INSERT INTO $this->tb_rentals (user_id, motorcycle_id, waktu_sewa) VALUES ('$user_id', '$motorcycle_id', '$current_time')";

@@ -1,6 +1,7 @@
 <?php
 function getTitle()
 {
+  date_default_timezone_set('Asia/Makassar');
   // Array of titles mapped to their respective URLs
   $titles = [
     '/rental-motor-listrik/' => 'Home',
