@@ -6,6 +6,20 @@ require_once 'app/Payment.php';
 
 $rentals = $Rental->getRentedMotorcycle();
 $payments = $Payment->getPayments();
+
+
+// Pagination
+$total_payments = count($payments);
+$payments_per_page = 4;
+$total_pages = ceil($total_payments / $payments_per_page);
+$current_page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+if ($current_page < 1) {
+  $current_page = 1;
+} elseif ($current_page > $total_pages) {
+  $current_page = $total_pages;
+}
+$offset = ($current_page - 1) * $payments_per_page;
+$payments = $Payment->getPaymentsWithPagination($payments_per_page, $offset);
 ?>
 
 <div class="p-4 sm:ml-64">
@@ -46,6 +60,22 @@ $payments = $Payment->getPayments();
         <?php endif ?>
       <?php endforeach ?>
     </div>
+
+    <!-- Pagination button -->
+    <div class="flex gap-x-4 mt-4">
+      <div>
+        <?php if ($current_page > 1): ?>
+          <a href="?page=<?= $current_page - 1 ?>"
+            class="text-slate-100 rounded-lg p-2 border bg-blue-700 hover:bg-blue-900">Previous</a>
+        <?php endif; ?>
+      </div>
+      <div>
+        <?php if ($current_page < $total_pages): ?>
+          <a href="?page=<?= $current_page + 1 ?>"
+            class="text-slate-100 rounded-lg p-2 border bg-blue-700 hover:bg-blue-900">Next</a>
+        <?php endif; ?>
+      </div>
+    </div>
   </div>
 
 
@@ -82,6 +112,9 @@ $payments = $Payment->getPayments();
               </form>
             <?php endif ?>
           </div>
+        <?php else: ?>
+          <h1 class="text-md text-slate-600">No Pending Payments...</h1>
+          <?php break; ?>
         <?php endif ?>
       <?php endforeach ?>
     </div>

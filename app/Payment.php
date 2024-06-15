@@ -27,6 +27,20 @@ class Payment extends Database
     }
     return $rows;
   }
+
+  public function getPaymentsWithPagination($payments_per_page, $offset)
+  {
+    $result = $this->conn->query("SELECT * FROM $this->tb_payments 
+    INNER JOIN $this->tb_rentals ON $this->tb_payments.rental_id = $this->tb_rentals.rental_id 
+    INNER JOIN $this->tb_users ON $this->tb_rentals.user_id = $this->tb_users.user_id
+    INNER JOIN $this->tb_motorcycle ON $this->tb_rentals.motorcycle_id = $this->tb_motorcycle.motorcycle_id 
+    LIMIT $payments_per_page OFFSET $offset");
+    $rows = [];
+    while ($data = mysqli_fetch_assoc($result)) {
+      $rows[] = $data;
+    }
+    return $rows;
+  }
 }
 
 $Payment = new Payment();

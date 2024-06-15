@@ -45,6 +45,16 @@ class Rental extends Database
     }
   }
 
+  public function getrentalsWithPagination($rentals_per_page, $offset)
+  {
+    $result = $this->conn->query("SELECT * FROM $this->tb_rentals LIMIT $rentals_per_page OFFSET $offset");
+    $rows = [];
+    while ($data = mysqli_fetch_assoc($result)) {
+      $rows[] = $data;
+    }
+    return $rows;
+  }
+
   public function getRentedMotorcycle()
   {
     $query = "SELECT * FROM $this->tb_motorcycle INNER JOIN $this->tb_rentals ON $this->tb_rentals.motorcycle_id = $this->tb_motorcycle.motorcycle_id
