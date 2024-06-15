@@ -61,6 +61,7 @@ function getTitle()
     '/rental-motor-listrik/users.php',
     '/rental-motor-listrik/users.php?page=' . $page_pagination,
     '/rental-motor-listrik/rent-motorcycle.php',
+    '/rental-motor-listrik/rented-motorcycle.php',
   ];
 
   // Periksa apakah URL saat ini ada di dalam daftar URL yang dikecualikan

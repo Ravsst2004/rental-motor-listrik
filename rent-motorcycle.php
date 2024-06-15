@@ -12,7 +12,7 @@ if (isset($_POST['rent_motorcycle'])) {
   $rental_duration = $_POST['rental_duration'];
 
   // Memanggil fungsi untuk menyewa motor berdasarkan ID
-  $result = $Rental->rentalMotorcyclesByID($motorcycle_id, $customer_name, $rental_duration);
+  $result = $Rental->rentalMotorcyclesByID($motorcycle_id, $customer_name);
 
   // Menampilkan pesan hasil penyewaan
   echo $result;
@@ -21,7 +21,7 @@ if (isset($_POST['rent_motorcycle'])) {
 
 <div class="p-4 sm:ml-64">
   <!-- Video untuk Pemindaian QR Code -->
-  <video id="preview" class="w-fit h-64 bg-gray-200 mb-4 rounded-lg"></video>
+  <!-- <video id="preview" class="w-fit h-64 bg-gray-200 mb-4 rounded-lg"></video> -->
 
   <!-- Form untuk mengisi data penyewaan -->
   <form action="" method="POST">

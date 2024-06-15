@@ -71,7 +71,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                   </li>
                 <?php endif; ?>
                 <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100">Earnings</a>
+                  <a href="customer-status.php" class="block px-4 py-2 hover:bg-gray-100">Status</a>
                 </li>
               </ul>
               <div class="py-1">
