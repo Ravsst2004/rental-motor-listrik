@@ -35,8 +35,8 @@ $payments = $Payment->getPaymentsWithPagination($payments_per_page, $offset = 0)
             <h1 class="text-md">Motorcycle: <span class="font-light"><?= $payment['merk'] ?> -
                 <?= $payment['model'] ?></span>
             </h1>
-            <h1 class="text-md">payment Start: <span class="font-light"><?= $payment['waktu_sewa'] ?></span></h1>
-            <h1 class="text-md">Return time: <span class="font-light"><?= $payment['waktu_sewa'] ?></span></h1>
+            <h1 class="text-md">Rental Start: <span class="font-light"><?= $payment['waktu_sewa'] ?></span></h1>
+            <h1 class="text-md">Return time: <span class="font-light"><?= $payment['waktu_kembali'] ?></span></h1>
             <?php if ($payment['status_pembayaran'] == 'pending' || $payment['status_pembayaran'] == null): ?>
               <h1 class="text-md text-red-400">Payment status: <span
                   class="font-light"><?= $payment['status_pembayaran'] ?></span>

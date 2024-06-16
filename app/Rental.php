@@ -32,12 +32,11 @@ class Rental extends Database
         $resultRent = $this->conn->query($queryRent);
 
         if ($resultRent) {
-          return true; // Jika berhasil menyewa
+          return true;
         } else {
           return "Gagal menyewa motorcycle";
         }
       } else {
-        // return "Motorcycle dengan ID $motorcycle_id tidak tersedia untuk disewa.";
         return false;
       }
     } else {

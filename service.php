@@ -18,12 +18,19 @@ $motorcycles = $Motorcycle->getMotorcycles();
           </h5>
         </a>
         <p class="mb-3 font-normal text-gray-400">Price/hour Rp. <?= $motorcycle['hourly_rental_price'] ?></p>
-        <button data-id="<?= $motorcycle['motorcycle_id'] ?>" data-merk="<?= $motorcycle['merk'] ?>"
-          data-model="<?= $motorcycle['model'] ?>" data-year="<?= $motorcycle['year'] ?>"
-          data-price="<?= $motorcycle['hourly_rental_price'] ?>"
-          class="open-modal inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
-          Rent now!
-        </button>
+        <?php if ($motorcycle['status'] == 1): ?>
+          <button data-id="<?= $motorcycle['motorcycle_id'] ?>" data-merk="<?= $motorcycle['merk'] ?>"
+            data-model="<?= $motorcycle['model'] ?>" data-year="<?= $motorcycle['year'] ?>"
+            data-price="<?= $motorcycle['hourly_rental_price'] ?>"
+            class="open-modal inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
+            Rent now!
+          </button>
+        <?php else: ?>
+          <button
+            class=" inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-900 cursor-not-allowed">
+            Not available
+          </button>
+        <?php endif ?>
       </div>
     <?php endforeach ?>
 
@@ -51,7 +58,7 @@ $motorcycles = $Motorcycle->getMotorcycles();
 
       <form id="rentalForm" method="POST" action="functions/process_rental.php">
         <input type="hidden" id="modal_motorcycle_id" name="motorcycle_id">
-        <input type="hidden" id="modal_user_id" name="user_id" value="<?= htmlspecialchars($user_id) ?>">
+        <input type="hidden" id="modal_user_id" name="user_id" value="<?= $user_id ?>">
         <button type="submit"
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
           Confirm Rent
