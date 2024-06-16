@@ -72,6 +72,7 @@ class Rental extends Database
   {
     date_default_timezone_set('Asia/Makassar');
     $current_time = date('Y-m-d H:i:s');
+
     $query = "SELECT * FROM $this->tb_rentals WHERE rental_id = '$rental_id'";
     $result = $this->conn->query($query);
     $rental = mysqli_fetch_assoc($result);
@@ -84,9 +85,12 @@ class Rental extends Database
       if ($motor) {
         $waktu_sewa = strtotime($rental['waktu_sewa']);
         $waktu_kembali = strtotime($current_time);
-        $durasi_sewa = ($waktu_kembali - $waktu_sewa) / 3600;
+        $durasi_sewa_seconds = $waktu_kembali - $waktu_sewa;
+        $durasi_sewa_hours = $durasi_sewa_seconds / 3600;
+        $durasi_sewa_hours = ceil($durasi_sewa_hours);
         $harga_sewa_per_jam = $motor['hourly_rental_price'];
-        $total_biaya = $durasi_sewa * $harga_sewa_per_jam;
+        $total_biaya = $durasi_sewa_hours * $harga_sewa_per_jam;
+
         $update_query = "UPDATE $this->tb_rentals 
                              SET waktu_kembali = '$current_time', 
                                  total_biaya = '$total_biaya', 
@@ -99,6 +103,8 @@ class Rental extends Database
       }
     }
   }
+
+
 
   public function confirmPayment($rental_id, $motorcycle_id, $total_payment, $current_time)
   {

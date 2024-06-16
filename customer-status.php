@@ -24,8 +24,8 @@ $rentals = $Rental->getRentedMotorcycle();
               Return Time</th>
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total
               Cost</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Waktu
-              Berjalan</th>
+            <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Waktu
+              Berjalan</th> -->
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Payment Status</th>
           </tr>
@@ -51,8 +51,8 @@ $rentals = $Rental->getRentedMotorcycle();
                 <div class="text-sm text-gray-900"><?= $rental['total_biaya'] == null ? '-' : $rental['total_biaya'] ?>
                 </div>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <!-- <div class="text-sm text-gray-900" id="elapsed-time-<?= $index ?>"></div>
+              <!-- <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900" id="elapsed-time-<?= $index ?>"></div>
                 <script>
                   function updateElapsedTime(startTime, elementId) {
                     const startDate = new Date(startTime);
@@ -77,8 +77,8 @@ $rentals = $Rental->getRentedMotorcycle();
                   const startTime = "<?= $rental['waktu_sewa'] ?>";
                   const elementId = "elapsed-time-<?= $index ?>";
                   updateElapsedTime(startTime, elementId);
-                </script> -->
-              </td>
+                </script>
+              </td> -->
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="text-sm text-gray-900">
                   <?php if ($rental['status_pembayaran'] == null): ?>

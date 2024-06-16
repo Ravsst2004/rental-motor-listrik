@@ -59,7 +59,15 @@ $rentals = $Rental->getRentedMotorcycle();
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="text-sm text-gray-900">
-                  <?= $rental['status_pembayaran'] == null ? "-" : $rental['status_pembayaran'] ?>
+                  <?php if ($rental['status_pembayaran'] == null): ?>
+                    <span>
+                      -
+                    </span>
+                  <?php else: ?>
+                    <span class="bg-green-200 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">
+                      <?= $rental['status_pembayaran'] ?>
+                    </span>
+                  <?php endif ?>
                 </div>
               </td>
               <!-- <td class="px-6 py-4 whitespace-nowrap">

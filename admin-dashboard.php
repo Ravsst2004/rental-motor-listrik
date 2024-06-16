@@ -112,9 +112,6 @@ $payments = $Payment->getPaymentsWithPagination($payments_per_page, $offset);
               </form>
             <?php endif ?>
           </div>
-        <?php else: ?>
-          <h1 class="text-md text-slate-600">No Pending Payments...</h1>
-          <?php break; ?>
         <?php endif ?>
       <?php endforeach ?>
     </div>

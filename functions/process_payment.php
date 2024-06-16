@@ -6,6 +6,8 @@ require_once '../app/Payment.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (isset($_POST['rental_id'])) {
     $rental_id = $_POST['rental_id'];
+    // echo $Rental->returnMotorcycle($rental_id);
+    // die();
     if ($Rental->returnMotorcycle($rental_id)) {
       echo "<script>
       alert('Return successfully');
