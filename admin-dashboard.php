@@ -19,7 +19,7 @@ if ($current_page < 1) {
   $current_page = $total_pages;
 }
 $offset = ($current_page - 1) * $payments_per_page;
-$payments = $Payment->getPaymentsWithPagination($payments_per_page, $offset);
+$payments = $Payment->getPaymentsWithPagination($payments_per_page, $offset = 0);
 ?>
 
 <div class="p-4 sm:ml-64">

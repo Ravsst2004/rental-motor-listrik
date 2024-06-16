@@ -33,72 +33,47 @@ $rentals = $Rental->getRentedMotorcycle();
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
+          <?php $number = 1 ?>
           <?php foreach ($rentals as $index => $rental): ?>
-            <tr>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900"><?= $index + 1 ?></div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900"><?= $rental['fullname'] ?></div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900"><?= $rental['merk'] ?> - <?= $rental['model'] ?></div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900"><?= $rental['waktu_sewa'] ?></div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900">
-                  <?= $rental['waktu_kembali'] == null ? "-" : $rental['waktu_kembali'] ?>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900">
-                  <?= $rental['total_biaya'] == null ? "-" : $rental['total_biaya'] ?>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900">
-                  <?php if ($rental['status_pembayaran'] == null): ?>
-                    <span>
-                      -
-                    </span>
-                  <?php else: ?>
-                    <span class="bg-green-200 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">
-                      <?= $rental['status_pembayaran'] ?>
-                    </span>
-                  <?php endif ?>
-                </div>
-              </td>
-              <!-- <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900" id="elapsed-time-<?= $index ?>"></div>
-                <script>
-                  function updateElapsedTime(startTime, elementId) {
-                    const startDate = new Date(startTime);
-                    const now = new Date();
-                    const diff = now - startDate;
-
-                    const diffSeconds = Math.floor(diff / 1000);
-                    const diffMinutes = Math.floor(diffSeconds / 60);
-                    const diffHours = Math.floor(diffMinutes / 60);
-                    const diffDays = Math.floor(diffHours / 24);
-
-                    const seconds = diffSeconds % 60;
-                    const minutes = diffMinutes % 60;
-                    const hours = diffHours % 24;
-
-                    document.getElementById(elementId).innerText =
-                      `${diffDays}d ${hours}h ${minutes}m ${seconds}s`;
-
-                    setTimeout(() => updateElapsedTime(startTime, elementId), 1000);
-                  }
-
-                  const startTime = "<?= $rental['waktu_sewa'] ?>";
-                  const elementId = "elapsed-time-<?= $index ?>";
-                  updateElapsedTime(startTime, elementId);
-                </script>
-              </td> -->
-            </tr>
+            <?php if ($rental['status_pembayaran'] == null): ?>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-900"><?= $number++ ?></div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-900"><?= $rental['fullname'] ?></div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-900"><?= $rental['merk'] ?> - <?= $rental['model'] ?></div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-900"><?= $rental['waktu_sewa'] ?></div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-900">
+                    <?= $rental['waktu_kembali'] == null ? "-" : $rental['waktu_kembali'] ?>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-900">
+                    <?= $rental['total_biaya'] == null ? "-" : $rental['total_biaya'] ?>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-900">
+                    <?php if ($rental['status_pembayaran'] == null): ?>
+                      <span>
+                        -
+                      </span>
+                    <?php else: ?>
+                      <span class="bg-green-200 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">
+                        <?= $rental['status_pembayaran'] ?>
+                      </span>
+                    <?php endif ?>
+                  </div>
+                </td>
+              </tr>
+            <?php endif ?>
           <?php endforeach; ?>
         </tbody>
       </table>

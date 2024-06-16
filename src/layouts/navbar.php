@@ -44,11 +44,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
           </li>
         <?php endif; ?>
         <li>
-          <a href="#"
-            class="<?= $current_page == 'pricing.php' ? 'text-blue-700' : 'text-slate-800' ?> block py-2 px-3 bg-blue-700 rounded md:bg-transparent md:p-0">Pricing</a>
-        </li>
-        <li>
-          <a href="#"
+          <a href="contact.php"
             class="<?= $current_page == 'contact.php' ? 'text-blue-700' : 'text-slate-800' ?> block py-2 px-3 bg-blue-700 rounded md:bg-transparent md:p-0">Contact</a>
         </li>
         <?php if ($user): ?>
@@ -70,6 +66,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     <a href="admin-dashboard.php" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
                   </li>
                 <?php endif; ?>
+                <li>
+                  <a href="profile.php" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
+                </li>
                 <li>
                   <a href="customer-status.php" class="block px-4 py-2 hover:bg-gray-100">Status</a>
                 </li>

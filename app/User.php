@@ -125,6 +125,15 @@ class User extends Database
     }
     return $rows;
   }
+  public function getUsersBId($user_id)
+  {
+    $result = $this->conn->query("SELECT * FROM $this->tb_name WHERE user_id = $user_id");
+    $rows = [];
+    while ($data = mysqli_fetch_assoc($result)) {
+      $rows[] = $data;
+    }
+    return $rows;
+  }
 
   public function logout()
   {
