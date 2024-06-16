@@ -104,7 +104,21 @@ class Rental extends Database
     }
   }
 
+  public function getRentedMotorcycleByCustomer($user_id)
+  {
+    $query = "SELECT * FROM $this->tb_motorcycle
+          INNER JOIN $this->tb_rentals ON $this->tb_rentals.motorcycle_id = $this->tb_motorcycle.motorcycle_id
+          INNER JOIN $this->tb_users ON $this->tb_rentals.user_id = $this->tb_users.user_id
+          INNER JOIN $this->tb_locations ON $this->tb_motorcycle.location_id = $this->tb_locations.location_id 
+          WHERE $this->tb_users.user_id = $user_id";
 
+    $result = $this->conn->query($query);
+    $rows = [];
+    while ($data = mysqli_fetch_assoc($result)) {
+      $rows[] = $data;
+    }
+    return $rows;
+  }
 
   public function confirmPayment($rental_id, $motorcycle_id, $total_payment, $current_time)
   {
