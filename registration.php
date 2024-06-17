@@ -19,7 +19,7 @@ if (isset($_POST['registration'])) {
   }
 }
 ?>
-  
+
 
 <?php require_once 'src/layouts/header.php'; ?>
 

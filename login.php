@@ -1,4 +1,5 @@
 <?php
+require_once 'src/layouts/header.php';
 require_once "app/User.php";
 
 // check if user is login
@@ -6,25 +7,29 @@ session_start();
 if (isset($_SESSION['username']))
   header("Location: index.php");
 
+$error = null;
 if (isset($_POST['login'])) {
-  if ($User->login($_POST)) {
-    echo "
-            <script>
-                alert('Login sukses');
-                document.location.href = 'index.php';
-            </script>
-        ";
-  } else {
-    echo "
-            <script>
-                alert('Login gagal. Username atau password salah.');
-            </script>
-        ";
+  if (!$User->login($_POST)) {
+    $error = true;
   }
 }
-
 ?>
-<?php require_once 'src/layouts/header.php'; ?>
+
+<?php if ($error): ?>
+  <div id="errorAlert"
+    class="flex items-center p-4 mb-4 text-sm rounded-lg shadow-xl bg-yellow-50 text-yellow-700 w-fit absolute top-[90%] left-[85%] transform -translate-x-1/2 -translate-y-1/2"
+    role="alert">
+    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor" viewBox="0 0 20 20">
+      <path
+        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+    </svg>
+    <span class="sr-only">Info</span>
+    <div class="w-96">
+      <span>Credentials incorrect</span>
+    </div>
+  </div>
+<?php endif; ?>
 
 <section class="bg-gray-50">
   <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

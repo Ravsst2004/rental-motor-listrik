@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($Rental->returnMotorcycle($rental_id)) {
       echo "<script>
       alert('Return successfully');
-      window.location.href = '../index.php';
+      window.location.href = '../customer-status.php';
     </script>";
     } else {
       echo "Return Failed";

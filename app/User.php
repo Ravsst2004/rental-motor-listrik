@@ -125,6 +125,7 @@ class User extends Database
     }
     return $rows;
   }
+
   public function getUsersBId($user_id)
   {
     $result = $this->conn->query("SELECT * FROM $this->tb_name WHERE user_id = $user_id");

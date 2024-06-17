@@ -3,7 +3,7 @@ require_once 'src/layouts/header.php';
 require_once 'app/Rental.php';
 require_once 'app/Motorcycle.php';
 
-$user_id = $_SESSION['user_id'];
+$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 $motorcycles = $Motorcycle->getMotorcycles();
 ?>
 
@@ -18,18 +18,23 @@ $motorcycles = $Motorcycle->getMotorcycles();
           </h5>
         </a>
         <p class="mb-3 font-normal text-gray-400">Price/hour Rp. <?= $motorcycle['hourly_rental_price'] ?></p>
-        <?php if ($motorcycle['status'] == 1): ?>
+        <?php if (($motorcycle['status'] == 1) && $user_id): ?>
           <button data-id="<?= $motorcycle['motorcycle_id'] ?>" data-merk="<?= $motorcycle['merk'] ?>"
             data-model="<?= $motorcycle['model'] ?>" data-year="<?= $motorcycle['year'] ?>"
             data-price="<?= $motorcycle['hourly_rental_price'] ?>"
             class="open-modal inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
             Rent now!
           </button>
-        <?php else: ?>
+        <?php elseif ($motorcycle['status'] != 1): ?>
           <button
             class=" inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-900 cursor-not-allowed">
             Not available
           </button>
+        <?php else: ?>
+          <a href="login.php"
+            class="open-modal inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
+            Login now for rent
+          </a>
         <?php endif ?>
       </div>
     <?php endforeach ?>

@@ -46,23 +46,13 @@ $payments = $Payment->getPaymentsWithPagination($payments_per_page, $offset = 0)
                   class="font-light"><?= $payment['status_pembayaran'] ?></span>
               </h1>
             <?php endif ?>
-            <?php if ($payment['status_pembayaran'] == 'pending' || $payment['status_pembayaran'] == null): ?>
-              <form action="functions/process_confirm_payment.php" method="POST">
-                <input type="hidden" name="payment_id" value="<?= $payment['payment_id'] ?>">
-                <input type="hidden" name="motorcycle_id" value="<?= $payment['motorcycle_id'] ?>">
-                <input type="hidden" name="motorcycle_id" value="<?= $payment['total_biaya'] ?>">
-                <input type="hidden" name="motorcycle_id" value="<?= $payment['waktu_kembali'] ?>">
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Approve
-                  Payment</button>
-              </form>
-            <?php endif ?>
           </div>
         <?php endif ?>
       <?php endforeach ?>
     </div>
 
     <!-- Pagination button -->
-    <div class="flex gap-x-4 mt-4">
+    <div class=" flex gap-x-4 mt-4">
       <div>
         <?php if ($current_page > 1): ?>
           <a href="?page=<?= $current_page - 1 ?>"
@@ -89,7 +79,8 @@ $payments = $Payment->getPaymentsWithPagination($payments_per_page, $offset = 0)
           <div class="h-fit w-fit rounded-md border-l-4 border-green-500 p-5 flex flex-col gap-y-2">
             <span class="text-xs text-blue-600 uppercase">ID Transaksi: <?= $rental['rental_id'] ?></span>
             <h1 class="text-md">Customer name: <span class="font-light"><?= $rental['fullname'] ?></span></h1>
-            <h1 class="text-md">Motorcycle: <span class="font-light"><?= $rental['merk'] ?> - <?= $rental['model'] ?></span>
+            <h1 class="text-md">Motorcycle: <span class="font-light"><?= $rental['merk'] ?> -
+                <?= $rental['model'] ?></span>
             </h1>
             <h1 class="text-md">Rental Start: <span class="font-light"><?= $rental['waktu_sewa'] ?></span></h1>
             <h1 class="text-md">Return time: <span class="font-light"><?= $rental['waktu_kembali'] ?></span></h1>
@@ -107,7 +98,8 @@ $payments = $Payment->getPaymentsWithPagination($payments_per_page, $offset = 0)
                 <input type="hidden" name="motorcycle_id" value="<?= $rental['motorcycle_id'] ?>">
                 <input type="hidden" name="total_biaya" value="<?= $rental['total_biaya'] ?>">
                 <input type="hidden" name="waktu_kembali" value="<?= $rental['waktu_kembali'] ?>">
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Approve
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  onclick="return confirm('Are you sure you want to approve this payment?')">Approve
                   Payment</button>
               </form>
             <?php endif ?>

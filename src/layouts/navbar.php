@@ -37,12 +37,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
             class="<?= $current_page == 'index.php' ? 'text-blue-700' : 'text-slate-800' ?> block py-2 px-3 bg-blue-700 rounded md:bg-transparent md:p-0"
             aria-current="page">Home</a>
         </li>
-        <?php if ($user): ?>
-          <li>
-            <a href="service.php"
-              class="<?= $current_page == 'service.php' ? 'text-blue-700' : 'text-slate-800' ?> block py-2 px-3 bg-blue-700 rounded md:bg-transparent md:p-0">Services</a>
-          </li>
-        <?php endif; ?>
+        <li>
+          <a href="service.php"
+            class="<?= $current_page == 'service.php' ? 'text-blue-700' : 'text-slate-800' ?> block py-2 px-3 bg-blue-700 rounded md:bg-transparent md:p-0">Services</a>
+        </li>
         <li>
           <a href="contact.php"
             class="<?= $current_page == 'contact.php' ? 'text-blue-700' : 'text-slate-800' ?> block py-2 px-3 bg-blue-700 rounded md:bg-transparent md:p-0">Contact</a>
