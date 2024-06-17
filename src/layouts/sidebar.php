@@ -29,17 +29,18 @@ if (isset($_POST['logout'])) {
           <span class="sr-only">Open sidebar</span>
         </button>
       </div>
-      <div class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
+      <div class="hidden w-full px-10 md:block md:w-auto" id="navbar-dropdown">
         <ul
           class="flex flex-col font-medium p-4 md:p-0 mt-4 border items-center border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
+          <li>
+            <a href="index.php"
+              class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
+              aria-current="page">Home</a>
+          </li>
           <li>
             <a href="service.php"
               class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
               aria-current="page">Service</a>
-          </li>
-          <li>
-            <a href=""
-              class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">History</a>
           </li>
         </ul>
       </div>
@@ -107,7 +108,7 @@ if (isset($_POST['logout'])) {
         </a>
       </li>
       <li>
-        <a href="rent-motorcycle.php" class="flex items-center p-2 rounded-lg text-white hover:bg-blue-900 group">
+        <a href="qr-scan-motorcycle.php" class="flex items-center p-2 rounded-lg text-white hover:bg-blue-900 group">
           <svg
             class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"

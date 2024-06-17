@@ -4,11 +4,19 @@ function getTitle()
   date_default_timezone_set('Asia/Makassar');
   // Array of titles mapped to their respective URLs
   $titles = [
-    '/rental-motor-listrik/' => 'Home',
+    '/rental-motor-listrik' . '/index.php' => 'Home',
     '/rental-motor-listrik/login.php' => 'Login',
     '/rental-motor-listrik/registration.php' => 'Registration',
     '/rental-motor-listrik/admin_dashboard.php' => 'Admin Dashboard',
-    // Tambahkan judul lainnya sesuai kebutuhan
+    '/rental-motor-listrik/service.php' => 'Service',
+    '/rental-motor-listrik/customer-status.php' => 'Status Rental',
+    '/rental-motor-listrik/profile.php' => 'Profile',
+    '/rental-motor-listrik/admin-dashboard.php' => 'Admin Dashboard',
+    '/rental-motor-listrik/motor.php' => 'Admin',
+    '/rental-motor-listrik/location.php' => 'Admin',
+    '/rental-motor-listrik/users.php' => 'Admin',
+    '/rental-motor-listrik/qr-scan-motorcycle.php' => 'Admin',
+    '/rental-motor-listrik/rented-motorcycle.php' => 'Admin',
   ];
 
   // Get the current request URI
@@ -62,7 +70,7 @@ function getTitle()
     '/rental-motor-listrik/location.php?page=' . $page_pagination,
     '/rental-motor-listrik/users.php',
     '/rental-motor-listrik/users.php?page=' . $page_pagination,
-    '/rental-motor-listrik/rent-motorcycle.php',
+    '/rental-motor-listrik/qr-scan-motorcycle.php',
     '/rental-motor-listrik/rented-motorcycle.php',
   ];
 
