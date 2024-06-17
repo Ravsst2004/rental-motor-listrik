@@ -13,12 +13,11 @@ if (isset($_POST['edit_location'])) {
   }
 }
 
+// Add Location
+$error = false;
 if (isset($_POST['add_location'])) {
   if ($Location->addLocation($_POST)) {
-    echo "<script>
-      alert('Location added successfully');
-      window.location.href = 'location.php';
-    </script>";
+    $error = $Location->addLocation($_POST);
   }
 }
 
@@ -36,6 +35,30 @@ if ($current_page < 1) {
 $offset = ($current_page - 1) * $locations_per_page;
 $locations = $Location->getlocationsWithPagination($locations_per_page, $offset);
 ?>
+
+
+
+<!-- Alert -->
+<div class="flex justify-center items-center mx-auto">
+  <?php if ($error): ?>
+    <div id="alert" class="absolute w-[30rem] top-96 p-4 mb-4 text-red-800 border border-red-300 rounded-lg bg-red-50"
+      role="alert">
+      <div class="flex items-center">
+        <h3 class="text-lg font-medium">Error</h3>
+      </div>
+      <div class="mt-2 mb-4 text-sm">
+        <?= $error ?>
+      </div>
+      <div class="flex">
+        <button type="button" id="alert-close"
+          class="text-red-800 bg-transparent border border-red-800 hover:bg-red-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center"
+          data-dismiss-target="#alert-additional-content-3" aria-label="Close">
+          Close
+        </button>
+      </div>
+    </div>
+  <?php endif; ?>
+</div>
 
 <div class="p-4 sm:ml-64">
   <div class="flex w-full gap-x-5">
@@ -206,6 +229,12 @@ $locations = $Location->getlocationsWithPagination($locations_per_page, $offset)
   closeModalEditLocation.addEventListener('click', (event) => {
     modalEditLocation.classList.add('hidden');
   });
+
+  const alertClose = document.getElementById("alert-close");
+  alertClose.addEventListener("click", function () {
+    document.getElementById("alert").classList.add("hidden");
+    window.location.href = "location.php";
+  })
 </script>
 
 

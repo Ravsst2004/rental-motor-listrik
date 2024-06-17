@@ -7,13 +7,11 @@ $motorcycles = $Motorcycle->getMotorcycles();
 $locations = $Location->getLocations();
 
 // Add Motorcycle
+$error = false;
 if (isset($_POST['add_motorcycles'])) {
   if ($Motorcycle->addMotorcycles($_POST)) {
     include 'functions/generate_qr.php';
-    echo "<script>
-      alert('Motorcycle added successfully');
-      window.location.href = 'motor.php';
-    </script>";
+    $error = $Motorcycle->addMotorcycles($_POST);
   }
 }
 
@@ -42,6 +40,28 @@ if ($current_page < 1) {
 $offset = ($current_page - 1) * $motorcycles_per_page;
 $motorcycles = $Motorcycle->getMotorcyclesWithPagination($motorcycles_per_page, $offset);
 ?>
+
+<!-- Alert -->
+<div class="flex justify-center items-center mx-auto">
+  <?php if ($error): ?>
+    <div id="alert" class="absolute w-[30rem] top-96 p-4 mb-4 text-red-800 border border-red-300 rounded-lg bg-red-50"
+      role="alert">
+      <div class="flex items-center">
+        <h3 class="text-lg font-medium">Error</h3>
+      </div>
+      <div class="mt-2 mb-4 text-sm">
+        <?= $error ?>
+      </div>
+      <div class="flex">
+        <button type="button" id="alert-close"
+          class="text-red-800 bg-transparent border border-red-800 hover:bg-red-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center"
+          data-dismiss-target="#alert-additional-content-3" aria-label="Close">
+          Close
+        </button>
+      </div>
+    </div>
+  <?php endif; ?>
+</div>
 
 <div class="p-4 sm:ml-64">
   <div class="flex w-full gap-x-5">
@@ -298,6 +318,12 @@ $motorcycles = $Motorcycle->getMotorcyclesWithPagination($motorcycles_per_page, 
   closeModalEditLocation.addEventListener('click', (event) => {
     modalEditLocation.classList.add('hidden');
   });
+
+  const alertClose = document.getElementById("alert-close");
+  alertClose.addEventListener("click", function () {
+    document.getElementById("alert").classList.add("hidden");
+    window.location.href = "motor.php";
+  })
 </script>
 
 <?php require_once 'src/layouts/footer.php'; ?>

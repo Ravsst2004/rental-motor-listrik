@@ -109,7 +109,7 @@ $success = isset($_GET['success']);
   const alertClose = document.getElementById("alert-close");
   alertClose.addEventListener("click", function () {
     document.getElementById("alert").classList.add("hidden");
-    window.location.href = "customer-status.php";
+    window.location.href = "service.php";
   })
 </script>
 

@@ -31,6 +31,11 @@ class Location extends Database
 
   public function addLocation(array $data)
   {
+    // Validasi semua Input
+    if (empty($data['location_name']) || empty($data['location_address'])) {
+      return 'All fields are required';
+    }
+
     $location_name = mysqli_real_escape_string($this->conn, $data['location_name']);
     $location_address = mysqli_real_escape_string($this->conn, $data['location_address']);
 

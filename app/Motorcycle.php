@@ -33,6 +33,44 @@ class Motorcycle extends Database
 
   public function addMotorcycles(array $data)
   {
+    // Validasi semua Input
+    if (empty($data['merk']) || empty($data['model']) || empty($data['year']) || empty($data['hourly_rental_price']) || empty($data['location_id'])) {
+      return 'All fields are required';
+    }
+
+    // Validasi Merk (kosong, panjang max)
+    if (empty($data['merk'])) {
+      return 'Merk cannot be empty';
+    }
+    if (strlen($data['merk']) > 100) {
+      return 'Merk must be less than 100 characters';
+    }
+
+    // Validasi Model (kosong, panjang max)
+    if (empty($data['model'])) {
+      return 'Model cannot be empty';
+    }
+    if (strlen($data['model']) > 100) {
+      return 'Model must be less than 100 characters';
+    }
+
+    // Validasi Year (kosong, harus angka, panjang 4 karakter)
+    if (empty($data['year'])) {
+      return 'Year cannot be empty';
+    }
+    if (!is_numeric($data['year']) || strlen($data['year']) != 4) {
+      return 'Year must be a 4-digit number';
+    }
+
+    // Validasi Harga Sewa per Jam (kosong, harus angka, harus positif)
+    if (empty($data['hourly_rental_price'])) {
+      return 'Hourly rental price cannot be empty';
+    }
+    if (!is_numeric($data['hourly_rental_price']) || $data['hourly_rental_price'] <= 0) {
+      return 'Hourly rental price must be a positive number';
+    }
+
+    // Jika semua validasi berhasil, lakukan sanitasi data dan insert ke database
     $merk = mysqli_real_escape_string($this->conn, $data['merk']);
     $model = mysqli_real_escape_string($this->conn, $data['model']);
     $year = mysqli_real_escape_string($this->conn, $data['year']);
@@ -40,10 +78,17 @@ class Motorcycle extends Database
     $status = 1;
     $location = mysqli_real_escape_string($this->conn, $data['location_id']);
 
-    $query = "INSERT INTO $this->tb_name(merk, model, year, hourly_rental_price, status, location_id) VALUES ('$merk', '$model', '$year', '$hourly_rental_price', '$status', '$location')";
+    $query = "INSERT INTO $this->tb_name (merk, model, year, hourly_rental_price, status, location_id) 
+              VALUES ('$merk', '$model', '$year', '$hourly_rental_price', '$status', '$location')";
     $result = $this->conn->query($query);
-    return $result;
+
+    if ($result) {
+      return true;
+    } else {
+      return 'Failed to add motorcycle';
+    }
   }
+
 
   public function updateMotorcyclesStatus($motorcycle_id, $status)
   {
