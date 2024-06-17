@@ -7,7 +7,6 @@ require_once 'app/Payment.php';
 $rentals = $Rental->getRentedMotorcycle();
 $payments = $Payment->getPayments();
 
-
 // Pagination
 $total_payments = count($payments);
 $payments_per_page = 4;
@@ -19,10 +18,25 @@ if ($current_page < 1) {
   $current_page = $total_pages;
 }
 $offset = ($current_page - 1) * $payments_per_page;
-$payments = $Payment->getPaymentsWithPagination($payments_per_page, $offset = 0);
+$payments = $Payment->getPaymentsWithPagination($payments_per_page, $offset);
 ?>
 
 <div class="p-4 sm:ml-64">
+  <!-- Alert -->
+  <div id="confirmation-card" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-[30rem]">
+      <div class="flex items-center">
+        <h3 class="text-lg font-medium">Confirm Payment</h3>
+      </div>
+      <div class="mt-2 mb-4 text-sm">
+        Are you sure you want to approve this payment?
+      </div>
+      <div class="flex gap-x-4">
+        <button type="button" id="confirm-approve" class="bg-green-500 text-white rounded-lg p-2">Approve</button>
+        <button type="button" id="cancel-approve" class="bg-red-500 text-white rounded-lg p-2">Cancel</button>
+      </div>
+    </div>
+  </div>
 
   <div>
     <h1 class="mt-5 font-bold text-2xl text-green-400">Payment Success</h1>
@@ -52,7 +66,7 @@ $payments = $Payment->getPaymentsWithPagination($payments_per_page, $offset = 0)
     </div>
 
     <!-- Pagination button -->
-    <div class=" flex gap-x-4 mt-4">
+    <div class="flex gap-x-4 mt-4">
       <div>
         <?php if ($current_page > 1): ?>
           <a href="?page=<?= $current_page - 1 ?>"
@@ -67,9 +81,6 @@ $payments = $Payment->getPaymentsWithPagination($payments_per_page, $offset = 0)
       </div>
     </div>
   </div>
-
-
-  <!-- ======= -->
 
   <div>
     <h1 class="mt-10 font-bold text-2xl text-yellow-400">Payment Pending</h1>
@@ -98,9 +109,12 @@ $payments = $Payment->getPaymentsWithPagination($payments_per_page, $offset = 0)
                 <input type="hidden" name="motorcycle_id" value="<?= $rental['motorcycle_id'] ?>">
                 <input type="hidden" name="total_biaya" value="<?= $rental['total_biaya'] ?>">
                 <input type="hidden" name="waktu_kembali" value="<?= $rental['waktu_kembali'] ?>">
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                  onclick="return confirm('Are you sure you want to approve this payment?')">Approve
-                  Payment</button>
+                <button type="button"
+                  class="approve-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  data-rental-id="<?= $rental['rental_id'] ?>" data-motorcycle-id="<?= $rental['motorcycle_id'] ?>"
+                  data-total-biaya="<?= $rental['total_biaya'] ?>" data-waktu-kembali="<?= $rental['waktu_kembali'] ?>">
+                  Approve Payment
+                </button>
               </form>
             <?php endif ?>
           </div>
@@ -108,7 +122,34 @@ $payments = $Payment->getPaymentsWithPagination($payments_per_page, $offset = 0)
       <?php endforeach ?>
     </div>
   </div>
-
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const approveButtons = document.querySelectorAll(".approve-button");
+    const confirmationCard = document.getElementById("confirmation-card");
+    const confirmApprove = document.getElementById("confirm-approve");
+    const cancelApprove = document.getElementById("cancel-approve");
+
+    let currentForm;
+
+    approveButtons.forEach(button => {
+      button.addEventListener("click", function () {
+        currentForm = this.closest("form");
+        confirmationCard.classList.remove("hidden");
+      });
+    });
+
+    confirmApprove.addEventListener("click", function () {
+      if (currentForm) {
+        currentForm.submit();
+      }
+    });
+
+    cancelApprove.addEventListener("click", function () {
+      confirmationCard.classList.add("hidden");
+    });
+  });
+</script>
 
 <?php require_once 'src/layouts/footer.php'; ?>

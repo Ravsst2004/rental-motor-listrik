@@ -9,10 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // echo $Rental->returnMotorcycle($rental_id);
     // die();
     if ($Rental->returnMotorcycle($rental_id)) {
-      echo "<script>
-      alert('Return successfully');
-      window.location.href = '../customer-status.php';
-    </script>";
+      header("Location: ../customer-status.php?success=true");
     } else {
       echo "Return Failed";
     }

@@ -5,9 +5,38 @@ require_once "app/Rental.php";
 $user_id = $_SESSION['user_id'];
 $rentals = $Rental->getRentedMotorcycleByCustomer($user_id);
 
+$success = isset($_GET['success']);
 ?>
 
+
+
 <div class="p-8">
+
+  <!-- Alert -->
+  <div class="flex justify-center items-center mx-auto">
+    <?php if ($success): ?>
+      <div id="alert"
+        class="absolute w-[30rem] top-96 p-4 mb-4 text-green-800 border border-green-300 rounded-lg bg-green-50"
+        role="alert">
+        <div class="flex items-center">
+          <h3 class="text-lg font-medium">Return success</h3>
+        </div>
+        <div class="mt-2 mb-4 text-sm">
+          The motorbike was successfully returned, wait for payment confirmation
+        </div>
+        <div class="flex">
+          <button type="button" id="alert-close"
+            class="text-green-800 bg-transparent border border-green-800 hover:bg-green-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center"
+            data-dismiss-target="#alert-additional-content-3" aria-label="Close">
+            Close
+          </button>
+        </div>
+      </div>
+    <?php endif; ?>
+  </div>
+
+
+
   <div class="border border-slate-200 rounded-md shadow-md">
     <h1 class="text-2xl px-5 py-2 font-bold leading-tight tracking-tight text-gray-900">Motorcycle Rental Info</h1>
     <hr>
@@ -75,6 +104,14 @@ $rentals = $Rental->getRentedMotorcycleByCustomer($user_id);
   </div>
 </div>
 
+
+<script>
+  const alertClose = document.getElementById("alert-close");
+  alertClose.addEventListener("click", function () {
+    document.getElementById("alert").classList.add("hidden");
+    window.location.href = "customer-status.php";
+  })
+</script>
 
 
 <?php require_once "src/layouts/footer.php"; ?>

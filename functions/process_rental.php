@@ -8,16 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user_id = $_POST['user_id'];
     if ($Rental->rentalMotorcyclesByID($motorcycle_id, $user_id)) {
       $Motorcycle->updateMotorcyclesStatus($motorcycle_id, 0);
-      echo "<script>
-        alert('Motorcycle successfully rented');
-        window.location.href = '../index.php';
-      </script>";
-      exit();
-    } else {
-      echo "Failed to rent motorcycle.";
+      header("Location: ../service.php?success=true");
     }
-  } else {
-    echo "Motorcycle ID is not set.";
   }
 } else {
   echo "Invalid request method.";

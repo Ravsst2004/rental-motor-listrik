@@ -5,11 +5,37 @@ require_once 'app/Motorcycle.php';
 
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 $motorcycles = $Motorcycle->getMotorcycles();
+
+$success = isset($_GET['success']);
 ?>
 
 <div class="flex justify-center items-center mx-auto gap-x-9">
-  <div class="grid grid-cols-4 gap-4 mx-auto pt-5">
 
+
+  <!-- Alert -->
+  <?php if ($success): ?>
+    <div id="alert"
+      class="absolute w-[30rem] top-96 p-4 mb-4 text-green-800 border border-green-300 rounded-lg bg-green-50"
+      role="alert">
+      <div class="flex items-center">
+        <h3 class="text-lg font-medium">Rental Status: Confirmed</h3>
+      </div>
+      <div class="mt-2 mb-4 text-sm">
+        Thank you for rental our bike.
+      </div>
+      <div class="flex">
+        <button type="button" id="alert-close"
+          class="text-green-800 bg-transparent border border-green-800 hover:bg-green-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center"
+          data-dismiss-target="#alert-additional-content-3" aria-label="Close">
+          Close
+        </button>
+      </div>
+    </div>
+  <?php endif; ?>
+
+
+  <!-- Motorcycles Card-->
+  <div class="grid grid-cols-4 gap-4 mx-auto pt-5">
     <?php foreach ($motorcycles as $motorcycle): ?>
       <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow">
         <a href="#">
@@ -38,7 +64,6 @@ $motorcycles = $Motorcycle->getMotorcycles();
         <?php endif ?>
       </div>
     <?php endforeach ?>
-
   </div>
 </div>
 
@@ -73,6 +98,8 @@ $motorcycles = $Motorcycle->getMotorcycles();
   </div>
 </div>
 
+
+
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById("modalRentMotorcycle");
@@ -100,6 +127,12 @@ $motorcycles = $Motorcycle->getMotorcycles();
       modal.classList.add("hidden");
     });
   });
+
+  const alertClose = document.getElementById("alert-close");
+  alertClose.addEventListener("click", function () {
+    document.getElementById("alert").classList.add("hidden");
+    window.location.href = "service.php";
+  })
 </script>
 
 <?php require_once 'src/layouts/footer.php'; ?>
