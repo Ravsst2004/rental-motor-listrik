@@ -8,6 +8,22 @@ class User extends Database
     parent::__construct();
   }
 
+  public function editUser(array $data)
+  {
+    $id = mysqli_real_escape_string($this->conn, $data['user_id']);
+    $fullname = mysqli_real_escape_string($this->conn, $data['fullname']);
+    $email = mysqli_real_escape_string($this->conn, $data['email']);
+    $phone = mysqli_real_escape_string($this->conn, $data['phone']);
+    $address = mysqli_real_escape_string($this->conn, $data['address']);
+
+    $sql = "UPDATE $this->tb_name SET fullname = '$fullname', address = '$address', phone = '$phone' WHERE user_id = '$id'";
+    if ($this->conn->query($sql)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   public function registration(array $data)
   {
     $fullname = mysqli_real_escape_string($this->conn, $data['fullname']);

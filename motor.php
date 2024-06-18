@@ -298,6 +298,7 @@ $motorcycles = $Motorcycle->getMotorcyclesWithPagination($motorcycles_per_page, 
     button.addEventListener('click', (event) => {
       modalEditLocation.classList.remove('hidden');
 
+      
       const motorcycleId = button.getAttribute('data-motorcycle-id');
       const motorcycleMerk = button.getAttribute('data-motorcycle-merk');
       const motorcycleModel = button.getAttribute('data-motorcycle-model');
