@@ -30,6 +30,8 @@ class Payment extends Database
 
   public function getPaymentsWithPagination($payments_per_page, $offset)
   {
+    $payments_per_page = max(0, (int) $payments_per_page);
+    $offset = max(0, (int) $offset);
     $result = $this->conn->query("SELECT * FROM $this->tb_payments 
     INNER JOIN $this->tb_rentals ON $this->tb_payments.rental_id = $this->tb_rentals.rental_id 
     INNER JOIN $this->tb_users ON $this->tb_rentals.user_id = $this->tb_users.user_id

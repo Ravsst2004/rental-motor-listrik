@@ -127,6 +127,8 @@ class Motorcycle extends Database
 
   public function getMotorcyclesWithPagination($motorcycle_per_page, $offset)
   {
+    $motorcycle_per_page = max(0, (int) $motorcycle_per_page);
+    $offset = max(0, (int) $offset);
     $sql = "SELECT 
     t.*, 
     l.location_name, 
@@ -144,8 +146,10 @@ OFFSET
 ";
     $result = $this->conn->query($sql);
     $rows = [];
-    while ($data = mysqli_fetch_assoc($result)) {
-      $rows[] = $data;
+    if ($result->num_rows > 0) {
+      while ($data = $result->fetch_assoc()) {
+        $rows[] = $data;
+      }
     }
     return $rows;
   }

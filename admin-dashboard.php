@@ -7,8 +7,9 @@ require_once 'app/Payment.php';
 $rentals = $Rental->getRentedMotorcycle();
 $payments = $Payment->getPayments();
 
+
 // Pagination
-$total_payments = count($payments);
+$total_payments = $payments > 1 ? count($payments) : 0;
 $payments_per_page = 4;
 $total_pages = ceil($total_payments / $payments_per_page);
 $current_page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
@@ -43,7 +44,8 @@ $payments = $Payment->getPaymentsWithPagination($payments_per_page, $offset);
     <div class="grid grid-cols-2 gap-4">
       <?php foreach ($payments as $payment): ?>
         <?php if ($payment['status_pembayaran'] == 'berhasil'): ?>
-          <div class="h-fit rounded-md border-4 border-l-green-500  p-5 flex flex-col gap-y-2 border-gray-50 shadow-lg">
+          <div
+            class="h-fit overflow-y-auto rounded-md border-4 border-l-green-500  p-5 flex flex-col gap-y-2 border-gray-50 shadow-lg">
             <span class="text-xs text-blue-600 uppercase">ID Transaksi: <?= $payment['payment_id'] ?></span>
             <h1 class="text-md">Customer name: <span class="font-light"><?= $payment['fullname'] ?></span></h1>
             <h1 class="text-md">Motorcycle: <span class="font-light"><?= $payment['merk'] ?> -
