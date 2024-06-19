@@ -9,11 +9,16 @@ $locations = $Location->getLocations();
 // Add Motorcycle
 $error = false;
 if (isset($_POST['add_motorcycles'])) {
-  if ($Motorcycle->addMotorcycles($_POST)) {
+  // var_dump($_POST);
+  // var_dump($_FILES);
+  $result = $Motorcycle->addMotorcycles($_POST);
+  if ($result === true) {
     include 'functions/generate_qr.php';
-    $error = $Motorcycle->addMotorcycles($_POST);
+  } else {
+    $error = $result;
   }
 }
+
 
 if (isset($_POST["edit_motorcycle"])) {
   if ($Motorcycle->updateMotorcycles($_POST)) {
@@ -68,7 +73,8 @@ $motorcycles = $Motorcycle->getMotorcyclesWithPagination($motorcycles_per_page, 
     <!-- Form Add Motorcycle -->
     <div class="w-[30%]">
       <div class="w-full">
-        <form class="bg-white shadow-md border border-slate-200 rounded px-8 pt-6 pb-8 mb-4" method="POST">
+        <form class="bg-white shadow-md border border-slate-200 rounded px-8 pt-6 pb-8 mb-4" method="POST"
+          enctype="multipart/form-data">
           <!-- Input for Merk -->
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="merk">Merk</label>
@@ -97,6 +103,14 @@ $motorcycles = $Motorcycle->getMotorcyclesWithPagination($motorcycles_per_page, 
             <input
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="hourly_rental_price" name="hourly_rental_price" type="number" placeholder="Enter hourly rental price">
+          </div>
+          <!-- Input for image -->
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="image">Image </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="image" name="image" type="file">
+            <p class="text-red-500 text-sm italic">Allowed extensions .png | .jpg | .jpeg</p>
           </div>
           <!-- Dropdown for Lokasi -->
           <div class="mb-4">
@@ -182,11 +196,12 @@ $motorcycles = $Motorcycle->getMotorcyclesWithPagination($motorcycles_per_page, 
                       data-motorcycle-year="<?= $motorcycle['year'] ?>"
                       data-motorcycle-hourly-rental-price="<?= $motorcycle['hourly_rental_price'] ?>"
                       data-motorcycle-status="<?= $motorcycle['status'] ?>"
-                      data-motorcycle-location="<?= $motorcycle['location_id'] ?>">
+                      data-motorcycle-location="<?= $motorcycle['location_id'] ?>"
+                      data-motorcycle-image="<?= $motorcycle['image_url'] ?>"">
                       Edit
                     </a>
-                    <a href="functions/motorcycle_delete.php?motorcycle_id=<?= $motorcycle['motorcycle_id'] ?>"
-                      onclick="return confirm('Are you sure you want to delete this motorcycle?')"
+                    <a href=" functions/motorcycle_delete.php?motorcycle_id=<?= $motorcycle['motorcycle_id'] ?>"
+                    onclick="return confirm('Are you sure you want to delete this motorcycle?')"
                       class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                       Delete
                     </a>
@@ -230,7 +245,7 @@ $motorcycles = $Motorcycle->getMotorcyclesWithPagination($motorcycles_per_page, 
     </div>
     <div class="p-6">
       <!-- Form Edit Motorcycle -->
-      <form id="formEditLocation" method="POST">
+      <form id="formEditLocation" method="POST" enctype="multipart/form-data">
         <input type="hidden" id="edit_motorcycle_id" name="edit_motorcycle_id">
 
         <!-- Input for Merk -->
@@ -262,6 +277,14 @@ $motorcycles = $Motorcycle->getMotorcyclesWithPagination($motorcycles_per_page, 
           <label class="block text-gray-700 text-sm font-bold mb-2" for="edit_hourly_rental_price">Hourly Rental
             Price</label>
           <input type="number" id="edit_hourly_rental_price" name="edit_hourly_rental_price"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter hourly rental price">
+        </div>
+
+        <!-- Input Image -->
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="edit_image">Image</label>
+          <input type="file" id="edit_image" name="edit_image"
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             placeholder="Enter hourly rental price">
         </div>
@@ -298,7 +321,7 @@ $motorcycles = $Motorcycle->getMotorcyclesWithPagination($motorcycles_per_page, 
     button.addEventListener('click', (event) => {
       modalEditLocation.classList.remove('hidden');
 
-      
+
       const motorcycleId = button.getAttribute('data-motorcycle-id');
       const motorcycleMerk = button.getAttribute('data-motorcycle-merk');
       const motorcycleModel = button.getAttribute('data-motorcycle-model');
@@ -306,12 +329,14 @@ $motorcycles = $Motorcycle->getMotorcyclesWithPagination($motorcycles_per_page, 
       const motorcycleHourlyRentalPrice = button.getAttribute('data-motorcycle-hourly-rental-price');
       const motorcycleStatus = button.getAttribute('data-motorcycle-status');
       const motorcycleLocation = button.getAttribute('data-motorcycle-location');
+      const motorcycleImageUrl = button.getAttribute('data-motorcycle-image');
 
       document.getElementById('edit_motorcycle_id').value = motorcycleId;
       document.getElementById('edit_merk').value = motorcycleMerk;
       document.getElementById('edit_model').value = motorcycleModel;
       document.getElementById('edit_year').value = motorcycleYear;
       document.getElementById('edit_hourly_rental_price').value = motorcycleHourlyRentalPrice;
+      document.getElementById('edit_image').value = motorcycleImageUrl;
       document.getElementById('edit_location').value = motorcycleLocation;
     });
   });

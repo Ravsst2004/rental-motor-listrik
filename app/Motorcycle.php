@@ -34,43 +34,52 @@ class Motorcycle extends Database
   public function addMotorcycles(array $data)
   {
     // Validasi semua Input
-    if (empty($data['merk']) || empty($data['model']) || empty($data['year']) || empty($data['hourly_rental_price']) || empty($data['location_id'])) {
+    if (empty($data['merk']) || empty($data['model']) || empty($data['year']) || empty($data['hourly_rental_price']) || empty($data['location_id']) || empty($_FILES['image']['name'])) {
       return 'All fields are required';
     }
 
     // Validasi Merk (kosong, panjang max)
-    if (empty($data['merk'])) {
-      return 'Merk cannot be empty';
-    }
     if (strlen($data['merk']) > 100) {
       return 'Merk must be less than 100 characters';
     }
 
     // Validasi Model (kosong, panjang max)
-    if (empty($data['model'])) {
-      return 'Model cannot be empty';
-    }
     if (strlen($data['model']) > 100) {
       return 'Model must be less than 100 characters';
     }
 
     // Validasi Year (kosong, harus angka, panjang 4 karakter)
-    if (empty($data['year'])) {
-      return 'Year cannot be empty';
-    }
     if (!is_numeric($data['year']) || strlen($data['year']) != 4) {
       return 'Year must be a 4-digit number';
     }
 
     // Validasi Harga Sewa per Jam (kosong, harus angka, harus positif)
-    if (empty($data['hourly_rental_price'])) {
-      return 'Hourly rental price cannot be empty';
-    }
     if (!is_numeric($data['hourly_rental_price']) || $data['hourly_rental_price'] <= 0) {
       return 'Hourly rental price must be a positive number';
     }
 
-    // Jika semua validasi berhasil, lakukan sanitasi data dan insert ke database
+    $rand = rand();
+    $allowedExtensions = array('png', 'jpg', 'jpeg');
+    $file_name = $_FILES['image']['name'];
+    $file_size = $_FILES['image']['size'];
+    $file_tmp = $_FILES['image']['tmp_name'];
+    $ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+
+    if (!in_array($ext, $allowedExtensions)) {
+      return 'Invalid file extension. Only png, jpg, and jpeg are allowed.';
+    }
+
+    if ($file_size > 2000000) {
+      return 'File size must be less than 2MB.';
+    }
+
+    $image = $rand . '_' . $file_name;
+    $upload_path = 'src/image/motor/' . $image;
+
+    if (!move_uploaded_file($file_tmp, $upload_path)) {
+      return 'Failed to upload image.';
+    }
+
     $merk = mysqli_real_escape_string($this->conn, $data['merk']);
     $model = mysqli_real_escape_string($this->conn, $data['model']);
     $year = mysqli_real_escape_string($this->conn, $data['year']);
@@ -78,8 +87,8 @@ class Motorcycle extends Database
     $status = 1;
     $location = mysqli_real_escape_string($this->conn, $data['location_id']);
 
-    $query = "INSERT INTO $this->tb_name (merk, model, year, hourly_rental_price, status, location_id) 
-              VALUES ('$merk', '$model', '$year', '$hourly_rental_price', '$status', '$location')";
+    $query = "INSERT INTO $this->tb_name (merk, model, year, hourly_rental_price, image_url, status, location_id) 
+              VALUES ('$merk', '$model', '$year', '$hourly_rental_price', '$image', '$status', '$location')";
     $result = $this->conn->query($query);
 
     if ($result) {
@@ -88,7 +97,6 @@ class Motorcycle extends Database
       return 'Failed to add motorcycle';
     }
   }
-
 
   public function updateMotorcyclesStatus($motorcycle_id, $status)
   {
@@ -99,14 +107,16 @@ class Motorcycle extends Database
 
   public function deleteMotorcycles($motorcycle_id)
   {
-    $query = "SELECT merk, model FROM $this->tb_name WHERE motorcycle_id = $motorcycle_id";
+    $query = "SELECT merk, model, image_url FROM $this->tb_name WHERE motorcycle_id = $motorcycle_id";
     $result = $this->conn->query($query);
     $motorcycle = $result->fetch_assoc();
 
     if ($motorcycle) {
-      $filename = "../src/image/qr_code/" . $motorcycle['merk'] . "-" . $motorcycle['model'] . ".png";
-      if (file_exists($filename)) {
-        unlink($filename);
+      $qr_code_filename = "../src/image/qr_code/" . $motorcycle['merk'] . "-" . $motorcycle['model'] . ".png";
+      $motor_image_filename = "../src/image/motor/" . $motorcycle['image_url'];
+      if (file_exists($qr_code_filename)) {
+        unlink($qr_code_filename);
+        unlink($motor_image_filename);
       }
       $deleteQuery = "DELETE FROM $this->tb_name WHERE motorcycle_id = $motorcycle_id";
       $deleteResult = $this->conn->query($deleteQuery);
@@ -142,6 +152,45 @@ OFFSET
 
   public function updateMotorcycles(array $data)
   {
+    if ($_FILES['edit_image']['name']) {
+
+      $query = "SELECT image_url FROM $this->tb_name WHERE motorcycle_id = " . $data['edit_motorcycle_id'];
+      $result = $this->conn->query($query);
+
+      if ($result && $result->num_rows > 0) {
+        $current_image = $result->fetch_assoc()['image_url'];
+        $path_current_image = "src/image/motor/" . $current_image;
+
+        if (file_exists($path_current_image)) {
+          unlink($path_current_image);
+        }
+      }
+
+      $rand = rand();
+      $allowedExtensions = array('png', 'jpg', 'jpeg');
+      $file_name = $_FILES['edit_image']['name'];
+      $file_size = $_FILES['edit_image']['size'];
+      $file_tmp = $_FILES['edit_image']['tmp_name'];
+      $ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+
+      if (!in_array($ext, $allowedExtensions)) {
+        return 'Invalid file extension. Only png, jpg, and jpeg are allowed.';
+      }
+
+      if ($file_size > 2000000) {
+        return 'File size must be less than 2MB.';
+      }
+
+      $image = $rand . '_' . $file_name;
+      $upload_path = 'src/image/motor/' . $image;
+
+      if (!move_uploaded_file($file_tmp, $upload_path)) {
+        return 'Failed to upload image.';
+      }
+    } else {
+      $image = mysqli_real_escape_string($this->conn, $data['existing_image_name']);
+    }
+
     $motorcycle_id = mysqli_real_escape_string($this->conn, $data['edit_motorcycle_id']);
     $merk = mysqli_real_escape_string($this->conn, $data['edit_merk']);
     $model = mysqli_real_escape_string($this->conn, $data['edit_model']);
@@ -149,10 +198,13 @@ OFFSET
     $hourly_rental_price = mysqli_real_escape_string($this->conn, $data['edit_hourly_rental_price']);
     $location = mysqli_real_escape_string($this->conn, $data['edit_location_id']);
 
-    $query = "UPDATE $this->tb_name SET merk = '$merk', model = '$model', year = '$year', hourly_rental_price = '$hourly_rental_price', location_id = '$location' WHERE motorcycle_id = $motorcycle_id";
+    $query = "UPDATE $this->tb_name SET merk = '$merk', model = '$model', year = '$year', hourly_rental_price = '$hourly_rental_price', location_id = '$location', image_url = '$image' WHERE motorcycle_id = $motorcycle_id";
+
     $result = $this->conn->query($query);
     return $result;
   }
+
+
 }
 
 $Motorcycle = new Motorcycle();

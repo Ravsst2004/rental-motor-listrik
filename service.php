@@ -38,6 +38,7 @@ $success = isset($_GET['success']);
   <div class="grid grid-cols-4 gap-4 mx-auto pt-5">
     <?php foreach ($motorcycles as $motorcycle): ?>
       <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow">
+        <img class="w-full h-64 rounded-lg" src="src/image/motor/<?= $motorcycle['image_url'] ?>" alt="motorcycle image">
         <a href="#">
           <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900"><?= $motorcycle['merk'] ?> -
             <?= $motorcycle['model'] ?>

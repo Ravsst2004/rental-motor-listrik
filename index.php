@@ -25,25 +25,21 @@
 <div class="h-fit text-stone-100">
 
   <!-- FIRST CONTENT -->
-  <div class="flex w-full px-10 lg:px-20 pt-36 pb-48 items-center bg-gradient-to-r from-blue-400 to-blue-500 gap-x-20 ">
+  <div class="flex w-full px-10 lg:px-20 pt-36 pb-48 items-center bg-gradient-to-r from-blue-500 to-blue-600 gap-x-20 ">
     <div class="w-full xl:w-[60%] flex flex-col gap-y-2 pr-44">
-      <h1 class="text-6xl font-semibold">E-Moto Rentals </h1>
-      <h3 class="text-2xl font-semibold">Your Destination for Eco-Friendly Electric Motorcycle
-        Rentals</h3>
+      <h1 class="text-6xl font-semibold">E-Moto Rentals</h1>
+      <h3 class="text-2xl font-semibold">Your Destination for Eco-Friendly Electric Motorcycle Rentals</h3>
       <p class="text-xl text-justify">At E-Moto Rentals, we are committed to revolutionizing urban transportation with
-        our fleet
-        of cutting-edge
-        electric motorcycles. Whether you're a tourist looking to explore the city in a fun and sustainable way, or a
-        local in need of a convenient and eco-friendly commuting option, our electric motorcycles are the perfect
-        solution.</p>
+        our fleet of cutting-edge electric motorcycles. Whether you're a tourist looking to explore the city in a fun
+        and sustainable way, or a local in need of a convenient and eco-friendly commuting option, our electric
+        motorcycles are the perfect solution.</p>
       <?php if ($user): ?>
         <a href="service.php"
           class="text-xl text-slate-800 font-semibold bg-slate-50 w-fit py-2 px-4 rounded-lg hover:bg-slate-800 hover:text-slate-50">Rent
           Now!</a>
       <?php elseif (!$user): ?>
-        <a href="registration.php"
-          class="text-xl text-slate-800 font-semibold bg-slate-50 w-fit py-2 px-4 rounded-lg hover:bg-slate-800 hover:text-slate-50">Register
-          now for rent!</a>
+        <a href="registration.php" class="text-xl text-slate-800 font-semibold bg-slate-50 w-fit py-2 px-4 rounded-lg hover:bg-slate-800
+    hover:text-slate-50">Register now for rent!</a>
       <?php endif ?>
     </div>
     <div class="hidden xl:flex w-[40%] items-center justify-center">
@@ -65,7 +61,6 @@
         </ul>
       </div>
     </div>
-
   </div>
 
 
