@@ -49,7 +49,7 @@ if (isset($_POST['logout'])) {
 </nav>
 
 
-<!-- <aside id="logo-sidebar"
+<aside id="logo-sidebar"
   class="fixed top-0 left-0 z-40 w-64 h-screen pt-4 text-slate-100 transition-transform -translate-x-full bg-blue-700 border-r  sm:translate-x-0"
   aria-label="Sidebar">
   <div class="h-full px-3 pb-4 overflow-y-auto bg-blue-700">
@@ -138,7 +138,7 @@ if (isset($_POST['logout'])) {
       </li>
     </ul>
   </div>
-</aside> -->
+</aside>
 
 
 
