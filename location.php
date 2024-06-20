@@ -4,22 +4,34 @@ require_once 'app/Location.php';
 
 $locations = $Location->getLocations();
 
-if (isset($_POST['edit_location'])) {
-  if ($Location->updateLocation($_POST)) {
-    echo "<script>
-      alert('Location updated successfully');
-      window.location.href = 'location.php';
-    </script>";
-  }
-}
+$error = false;
+$success = $_GET['success'] ?? null;
+$text = $_GET['text'] ?? "";
 
 // Add Location
 $error = false;
 if (isset($_POST['add_location'])) {
-  if ($Location->addLocation($_POST)) {
-    $error = $Location->addLocation($_POST);
+  $result = $Location->addLocation($_POST);
+  if ($result === true) {
+    $text = "Location added successfully";
+    $success = true;
+  } else {
+    $error = $result;
   }
 }
+
+// Edit Location
+if (isset($_POST['edit_location'])) {
+  $result = $Location->updateLocation($_POST);
+  if ($result === true) {
+    $text = "Location updated successfully";
+    $success = true;
+  } else {
+    $error = $result;
+  }
+}
+
+
 
 
 // Pagination
@@ -52,6 +64,24 @@ $locations = $Location->getlocationsWithPagination($locations_per_page, $offset)
       <div class="flex">
         <button type="button" id="alert-close"
           class="text-red-800 bg-transparent border border-red-800 hover:bg-red-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center"
+          data-dismiss-target="#alert-additional-content-3" aria-label="Close">
+          Close
+        </button>
+      </div>
+    </div>
+  <?php elseif ($success): ?>
+    <div id="alert"
+      class="absolute w-[30rem] top-96 p-4 mb-4 text-green-800 border border-green-300 rounded-lg bg-green-50"
+      role="alert">
+      <div class="flex items-center">
+        <h3 class="text-lg font-medium">success</h3>
+      </div>
+      <div class="mt-2 mb-4 text-sm">
+        <h1><?= $text ?></h1>
+      </div>
+      <div class="flex">
+        <button type="button" id="alert-close"
+          class="text-green-800 bg-transparent border border-green-800 hover:bg-green-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center"
           data-dismiss-target="#alert-additional-content-3" aria-label="Close">
           Close
         </button>
@@ -137,8 +167,8 @@ $locations = $Location->getlocationsWithPagination($locations_per_page, $offset)
                       data-locationAddress="<?= $location['location_address'] ?>">
                       Edit
                     </a>
-                    <a href="functions/location_delete.php?location_id=<?= $location['location_id'] ?>"
-                      onclick="return confirm('Are you sure you want to delete this location?')"
+                    <a href="#"
+                      onclick="showConfirmDelete(event, 'functions/location_delete.php?location_id=<?= $location['location_id'] ?>')"
                       class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                       Delete
                     </a>
@@ -166,6 +196,25 @@ $locations = $Location->getlocationsWithPagination($locations_per_page, $offset)
       </div>
     </div>
 
+  </div>
+</div>
+
+<!-- Delete Confirm  -->
+<div id="customConfirm" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+  <div class="relative top-1/4 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+    <div class="mt-3 text-center">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">Are you sure?</h3>
+      <div class="mt-2 px-7 py-3">
+        <p class="text-sm text-gray-500">You won't be able to revert this!</p>
+      </div>
+      <div class="items-center px-4 py-3">
+        <button id="confirmButton"
+          class="px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-red-600">Yes,
+          delete it!</button>
+        <button id="cancelButton"
+          class="px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-gray-600 mt-2">Cancel</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -235,6 +284,23 @@ $locations = $Location->getlocationsWithPagination($locations_per_page, $offset)
     document.getElementById("alert").classList.add("hidden");
     window.location.href = "location.php";
   })
+
+  function showConfirmDelete(e, url) {
+    e.preventDefault();
+
+    const confirmDialog = document.getElementById('customConfirm');
+    confirmDialog.classList.remove('hidden');
+
+    const confirmButton = document.getElementById('confirmButton');
+    confirmButton.onclick = function () {
+      window.location.href = url;
+    };
+
+    const cancelButton = document.getElementById('cancelButton');
+    cancelButton.onclick = function () {
+      confirmDialog.classList.add('hidden');
+    };
+  }
 </script>
 
 
