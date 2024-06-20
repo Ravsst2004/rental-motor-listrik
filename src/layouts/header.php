@@ -55,7 +55,6 @@ function getTitle()
           }
         }
       }
-    }
   </script>
 
 </head>

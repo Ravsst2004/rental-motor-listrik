@@ -54,12 +54,12 @@ $success = isset($_GET['success']);
           </button>
         <?php elseif ($motorcycle['status'] != 1): ?>
           <button
-            class=" inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-900 cursor-not-allowed">
+            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-900 cursor-not-allowed">
             Not available
           </button>
         <?php else: ?>
           <a href="login.php"
-            class="open-modal inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
+            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
             Login now for rent
           </a>
         <?php endif ?>

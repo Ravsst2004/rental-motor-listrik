@@ -51,24 +51,11 @@ if (isset($_POST['login'])) {
               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
               required="">
           </div>
-          <!-- <div class="flex items-center justify-between">
-            <div class="flex items-start">
-              <div class="flex items-center h-5 ">
-                <input id="remember" aria-describedby="remember" type="checkbox"
-                  class="w-4 h-4 cursor-pointer border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300"
-                  required="">
-              </div>
-              <div class="ml-3 text-sm">
-                <label for="remember" class="text-gray-500 cursor-pointer">Remember me</label>
-              </div>
-            </div>
-            <a href="#" class="text-sm font-medium text-blue-600 hover:underline">Forgot password?</a>
-          </div> -->
           <button type="submit" name="login"
-            class="w-full text-white bg-blue-600  hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Sign
+            class="w-full text-slate-50 bg-slate-600  hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Sign
             in</button>
           <div class="flex justify-center items-center">
-            <a href="registration.php" class="text-sm font-light text-blue-600 hover:underline">
+            <a href="registration.php" class="text-sm font-light text-slate-800 hover:underline">
               Don’t have an account?
             </a>
           </div>
