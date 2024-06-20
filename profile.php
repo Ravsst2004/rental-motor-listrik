@@ -21,29 +21,31 @@ if (isset($_POST['edit_user'])) {
 }
 ?>
 
-<div class="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-lg my-10">
-  <div class="text-center">
-    <h1 class="text-4xl font-bold text-gray-900"><?= $user['username'] ?></h1>
-    <h2 class="text-2xl text-gray-700 mt-2"><?= $user['fullname'] ?></h2>
+<div class="py-10 pt-20">
+  <div class=" p-8 bg-white shadow-2xl rounded-lg max-w-6xl mx-auto">
+    <div class="text-center">
+      <h1 class="text-4xl font-bold text-gray-900"><?= $user['username'] ?></h1>
+      <h2 class="text-2xl text-gray-700 mt-2"><?= $user['fullname'] ?></h2>
+    </div>
+    <div class="mt-8">
+      <h3 class="text-lg font-medium text-gray-700">Email</h3>
+      <p class="text-gray-600"><?= $user['email'] ?></p>
+    </div>
+    <div class="mt-4">
+      <h3 class="text-lg font-medium text-gray-700">Phone</h3>
+      <p class="text-gray-600"><?= $user['phone'] ?></p>
+    </div>
+    <div class="mt-4">
+      <h3 class="text-lg font-medium text-gray-700">Address</h3>
+      <p class="text-gray-600"><?= $user['address'] == null ? '-' : $user['address'] ?></p>
+    </div>
+    <button class="btnModalEditLocation bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-5 mt-6 rounded"
+      data-user-id="<?= $user['user_id'] ?>" data-user-fullname="<?= $user['fullname'] ?>"
+      data-user-email="<?= $user['email'] ?>" data-user-phone="<?= $user['phone'] ?>"
+      data-user-address="<?= $user['address'] ?>">
+      Edit
+    </button>
   </div>
-  <div class="mt-8">
-    <h3 class="text-lg font-medium text-gray-700">Email</h3>
-    <p class="text-gray-600"><?= $user['email'] ?></p>
-  </div>
-  <div class="mt-4">
-    <h3 class="text-lg font-medium text-gray-700">Phone</h3>
-    <p class="text-gray-600"><?= $user['phone'] ?></p>
-  </div>
-  <div class="mt-4">
-    <h3 class="text-lg font-medium text-gray-700">Address</h3>
-    <p class="text-gray-600"><?= $user['address'] == null ? '-' : $user['address'] ?></p>
-  </div>
-  <button class="btnModalEditLocation bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 mt-6 rounded"
-    data-user-id="<?= $user['user_id'] ?>" data-user-fullname="<?= $user['fullname'] ?>"
-    data-user-email="<?= $user['email'] ?>" data-user-phone="<?= $user['phone'] ?>"
-    data-user-address="<?= $user['address'] ?>">
-    Edit
-  </button>
 </div>
 
 
@@ -100,7 +102,7 @@ if (isset($_POST['edit_user'])) {
         <!-- Submit Button -->
         <div class="flex items-center justify-between">
           <button type="submit" name="edit_user"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            class="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
             Save Changes
           </button>
         </div>

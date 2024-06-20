@@ -37,7 +37,7 @@ $success = isset($_GET['success']);
 
 
 
-  <div class="border border-slate-200 rounded-md shadow-md">
+  <div class="border border-slate-200 rounded-md shadow-md mt-14">
     <h1 class="text-2xl px-5 py-2 font-bold leading-tight tracking-tight text-gray-900">Motorcycle Rental Info</h1>
     <hr>
     <div class="mx-5 border overflow-x-auto border-slate-200 rounded-md my-2 overflow-y-auto max-h-[45rem]">
@@ -84,7 +84,8 @@ $success = isset($_GET['success']);
                   <?php if ($rental['status_pembayaran'] == null): ?>
                     <form action="functions/process_payment.php" method="POST">
                       <input type="hidden" name="rental_id" value="<?= $rental['rental_id'] ?>">
-                      <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                      <button type="submit"
+                        class="bg-slate-500 hover:bg-slate-700 hover:text-green-500 text-white font-bold py-2 px-4 rounded">
                         Pay Now
                       </button>
                     </form>

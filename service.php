@@ -35,7 +35,7 @@ $success = isset($_GET['success']);
 
 
   <!-- Motorcycles Card-->
-  <div class="grid grid-cols-4 gap-4 mx-auto pt-5">
+  <div class="grid grid-cols-4 gap-4 mx-auto pt-5 mt-24">
     <?php foreach ($motorcycles as $motorcycle): ?>
       <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow">
         <img class="w-full h-64 rounded-lg" src="src/image/motor/<?= $motorcycle['image_url'] ?>" alt="motorcycle image">
@@ -49,17 +49,17 @@ $success = isset($_GET['success']);
           <button data-id="<?= $motorcycle['motorcycle_id'] ?>" data-merk="<?= $motorcycle['merk'] ?>"
             data-model="<?= $motorcycle['model'] ?>" data-year="<?= $motorcycle['year'] ?>"
             data-price="<?= $motorcycle['hourly_rental_price'] ?>"
-            class="open-modal inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
+            class="open-modal inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none bg-slate-600 hover:bg-slate-700 focus:ring-slate-800">
             Rent now!
           </button>
-        <?php elseif ($motorcycle['status'] != 1): ?>
+        <?php elseif ($motorcycle['status'] != 1 && $user_id): ?>
           <button
-            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-900 cursor-not-allowed">
+            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-slate-900 cursor-not-allowed line-through">
             Not available
           </button>
         <?php else: ?>
           <a href="login.php"
-            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
+            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none bg-slate-600 hover:bg-slate-700 focus:ring-slate-800">
             Login now for rent
           </a>
         <?php endif ?>
@@ -91,7 +91,7 @@ $success = isset($_GET['success']);
         <input type="hidden" id="modal_motorcycle_id" name="motorcycle_id">
         <input type="hidden" id="modal_user_id" name="user_id" value="<?= $user_id ?>">
         <button type="submit"
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          class="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
           Confirm Rent
         </button>
       </form>
