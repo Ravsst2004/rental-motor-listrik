@@ -6,26 +6,32 @@ require_once 'app/Location.php';
 $motorcycles = $Motorcycle->getMotorcycles();
 $locations = $Location->getLocations();
 
-// Add Motorcycle
 $error = false;
+$success = $_GET['success'] ?? null;
+$text = $_GET['text'] ?? "";
+
+// Add Motorcycle
 if (isset($_POST['add_motorcycles'])) {
   // var_dump($_POST);
   // var_dump($_FILES);
   $result = $Motorcycle->addMotorcycles($_POST);
   if ($result === true) {
-    include 'functions/generate_qr.php';
+    // include 'functions/generate_qr.php';
+    $text = "Motorcycle added successfully";
+    $success = true;
   } else {
     $error = $result;
   }
 }
 
-
+// Edit Motorcycle
 if (isset($_POST["edit_motorcycle"])) {
-  if ($Motorcycle->updateMotorcycles($_POST)) {
-    "<script>
-      alert('Motorcycle updated successfully');
-      window.location.href = 'motor.php';
-    </script>";
+  $result = $Motorcycle->updateMotorcycles($_POST);
+  if ($result === true) {
+    $text = "Motorcycle updated successfully";
+    $success = true;
+  } else {
+    $error = $result;
   }
 }
 
@@ -65,9 +71,29 @@ $motorcycles = $Motorcycle->getMotorcyclesWithPagination($motorcycles_per_page, 
         </button>
       </div>
     </div>
+  <?php elseif ($success): ?>
+    <div id="alert"
+      class="absolute w-[30rem] top-96 p-4 mb-4 text-green-800 border border-green-300 rounded-lg bg-green-50"
+      role="alert">
+      <div class="flex items-center">
+        <h3 class="text-lg font-medium">success</h3>
+      </div>
+      <div class="mt-2 mb-4 text-sm">
+        <h1><?= $text ?></h1>
+      </div>
+      <div class="flex">
+        <button type="button" id="alert-close"
+          class="text-green-800 bg-transparent border border-green-800 hover:bg-green-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center"
+          data-dismiss-target="#alert-additional-content-3" aria-label="Close">
+          Close
+        </button>
+      </div>
+    </div>
   <?php endif; ?>
 </div>
 
+
+<!-- Content -->
 <div class="p-4 sm:ml-64">
   <div class="flex w-full gap-x-5">
     <!-- Form Add Motorcycle -->
@@ -134,8 +160,7 @@ $motorcycles = $Motorcycle->getMotorcyclesWithPagination($motorcycles_per_page, 
         </form>
       </div>
     </div>
-
-    <!-- Table Location List -->
+    <!-- Table Motorcycle List -->
     <div class="w-[70%]">
       <div class="overflow-x-auto border border-slate-200 rounded-md shadow-md">
         <h1 class="text-2xl px-5 py-2 font-bold leading-tight tracking-tight text-gray-900 ">Motorcycle List</h1>
@@ -200,11 +225,12 @@ $motorcycles = $Motorcycle->getMotorcyclesWithPagination($motorcycles_per_page, 
                       data-motorcycle-image="<?= $motorcycle['image_url'] ?>"">
                       Edit
                     </a>
-                    <a href=" functions/motorcycle_delete.php?motorcycle_id=<?= $motorcycle['motorcycle_id'] ?>"
-                    onclick="return confirm('Are you sure you want to delete this motorcycle?')"
+                <a href=" #"
+                      onclick="showConfirmDelete(event, 'functions/motorcycle_delete.php?motorcycle_id=<?= $motorcycle['motorcycle_id'] ?>')"
                       class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                       Delete
                     </a>
+
                   </td>
                 </tr>
               <?php endforeach; ?>
@@ -226,6 +252,25 @@ $motorcycles = $Motorcycle->getMotorcyclesWithPagination($motorcycles_per_page, 
               class="text-slate-100 rounded-lg p-2 border bg-blue-700 hover:bg-blue-900">Next</a>
           <?php endif; ?>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm  -->
+<div id="customConfirm" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+  <div class="relative top-1/4 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+    <div class="mt-3 text-center">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">Are you sure?</h3>
+      <div class="mt-2 px-7 py-3">
+        <p class="text-sm text-gray-500">You won't be able to revert this!</p>
+      </div>
+      <div class="items-center px-4 py-3">
+        <button id="confirmButton"
+          class="px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-red-600">Yes,
+          delete it!</button>
+        <button id="cancelButton"
+          class="px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-gray-600 mt-2">Cancel</button>
       </div>
     </div>
   </div>
@@ -350,6 +395,26 @@ $motorcycles = $Motorcycle->getMotorcyclesWithPagination($motorcycles_per_page, 
     document.getElementById("alert").classList.add("hidden");
     window.location.href = "motor.php";
   })
+
+
+  function showConfirmDelete(e, url) {
+    e.preventDefault();
+
+    const confirmDialog = document.getElementById('customConfirm');
+    confirmDialog.classList.remove('hidden');
+
+    const confirmButton = document.getElementById('confirmButton');
+    confirmButton.onclick = function () {
+      window.location.href = url;
+    };
+
+    const cancelButton = document.getElementById('cancelButton');
+    cancelButton.onclick = function () {
+      confirmDialog.classList.add('hidden');
+    };
+  }
+
+
 </script>
 
 <?php require_once 'src/layouts/footer.php'; ?>

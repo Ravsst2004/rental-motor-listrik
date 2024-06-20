@@ -156,9 +156,11 @@ OFFSET
 
   public function updateMotorcycles(array $data)
   {
-    if ($_FILES['edit_image']['name']) {
+    $image = null;
 
-      $query = "SELECT image_url FROM $this->tb_name WHERE motorcycle_id = " . $data['edit_motorcycle_id'];
+    // Cek apakah ada gambar yang diupload
+    if (isset($_FILES['edit_image']) && $_FILES['edit_image']['error'] == UPLOAD_ERR_OK) {
+      $query = "SELECT image_url FROM $this->tb_name WHERE motorcycle_id = " . mysqli_real_escape_string($this->conn, $data['edit_motorcycle_id']);
       $result = $this->conn->query($query);
 
       if ($result && $result->num_rows > 0) {
@@ -170,6 +172,7 @@ OFFSET
         }
       }
 
+      // Upload gambar baru
       $rand = rand();
       $allowedExtensions = array('png', 'jpg', 'jpeg');
       $file_name = $_FILES['edit_image']['name'];
@@ -192,9 +195,14 @@ OFFSET
         return 'Failed to upload image.';
       }
     } else {
-      $image = mysqli_real_escape_string($this->conn, $data['existing_image_name']);
+      if (isset($data['edit_image'])) {
+        $image = mysqli_real_escape_string($this->conn, $data['edit_image']);
+      } else {
+        return 'No image selected.';
+      }
     }
 
+    // Escaping semua inputan
     $motorcycle_id = mysqli_real_escape_string($this->conn, $data['edit_motorcycle_id']);
     $merk = mysqli_real_escape_string($this->conn, $data['edit_merk']);
     $model = mysqli_real_escape_string($this->conn, $data['edit_model']);
@@ -202,11 +210,14 @@ OFFSET
     $hourly_rental_price = mysqli_real_escape_string($this->conn, $data['edit_hourly_rental_price']);
     $location = mysqli_real_escape_string($this->conn, $data['edit_location_id']);
 
+    // Buat query untuk update
     $query = "UPDATE $this->tb_name SET merk = '$merk', model = '$model', year = '$year', hourly_rental_price = '$hourly_rental_price', location_id = '$location', image_url = '$image' WHERE motorcycle_id = $motorcycle_id";
 
+    // Eksekusi query
     $result = $this->conn->query($query);
     return $result;
   }
+
 
 
 }
