@@ -55,8 +55,8 @@ function getTitle()
           }
         }
       }
+    }
   </script>
-
 </head>
 
 <body class="font-poppins">
@@ -86,12 +86,10 @@ function getTitle()
     '/rental-motor-listrik/rented-motorcycle.php',
   ];
 
-  // Periksa apakah URL saat ini ada di dalam daftar URL yang dikecualikan
   if (!in_array($current_url, $not_url) && !in_array($current_url, $admin_url)) {
     include 'navbar.php';
   }
 
-  // Periksa apakah URL saat ini ada di dalam daftar URL admin
   if (in_array($current_url, $admin_url)) {
     include 'sidebar.php';
   }

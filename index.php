@@ -25,11 +25,10 @@
 <!-- SECOND CONTENT -->
 <div class="w-full flex p-20 bg-slate-800 bg-opacity-20">
   <div class="w-[65%] flex flex-col gap-y-6">
-    <div class="">
-      <div
-        class=" h-fit p-6 text-slate-800 bg-[url('./src/image/web-source/bg-whychoose.png')] bg-no-repeat bg-cover bg-opacity-20 rounded-lg shadow flex flex-col">
+    <div class="bg-[url('./src/image/web-source/bg-whychoose2.png')] bg-no-repeat bg-cover">
+      <div class=" h-fit p-6 text-slate-100 bg-slate-800 bg-opacity-30 rounded-lg shadow flex flex-col">
         <h5 class="mb-2 text-2xl font-bold tracking-tight">Why Choose E-Moto Rentals?</h5>
-        <ul class="flex-grow flex flex-col gap-y-6 font-normal text-justify text-slate-800">
+        <ul class="flex-grow flex flex-col gap-y-6 font-normal text-justify text-slate-50">
           <li><strong>Eco-Friendly:</strong> Our electric motorcycles produce zero emissions, helping you reduce your
             carbon footprint while enjoying your ride.</li>
           <li><strong>Cost-Effective:</strong> Save on fuel and maintenance costs with our affordable rental rates and
@@ -41,20 +40,24 @@
         </ul>
       </div>
     </div>
-    <div class="flex gap-x-10 items-center justify-center py-20 px-5 h-fit">
-      <div class="flex flex-col gap-y-1 items-center justify-center text-center">
+    <div class="flex gap-x-10 items-center justify-center py-28 px-5 h-fit">
+      <div
+        class="flex flex-col gap-y-1 items-center justify-center text-center cursor-pointer hover:scale-150 transition-all duration-300">
         <img src="./src/image/web-source/compare.svg" alt="" width="10%">
         <h1 class="text-2xl font-semibold">Compare</h1>
-        <p class="text-md">Compare and find the best motorbike rental here! With a variety of choices, we provide
+        <p class="text-md">Compare and find the best motorbike rental here! With a variety of choices, we
+          provide
           flexibility to meet your travel needs.</p>
       </div>
-      <div class="flex flex-col gap-y-1 items-center justify-center text-center">
+      <div
+        class="flex flex-col gap-y-1 items-center justify-center text-center cursor-pointer hover:scale-150 transition-all duration-300">
         <img src="./src/image/web-source/piggy-bank.svg" alt="" width="10%">
         <h1 class="text-2xl font-semibold">Save</h1>
         <p class="text-md">Rent a motorbike with us to save money and get a comfortable and economical driving
           experience at your destination</p>
       </div>
-      <div class="flex flex-col gap-y-1 items-center justify-center text-center">
+      <div
+        class="flex flex-col gap-y-1 items-center justify-center text-center cursor-pointer hover:scale-150 transition-all duration-300">
         <img src="./src/image/web-source/time.svg" alt="" width="10%">
         <h1 class="text-2xl font-semibold">Time</h1>
         <p class="text-md">Our motorbike rental allows you to rent quickly and start exploring your destination without
@@ -63,10 +66,22 @@
     </div>
 
   </div>
-  <div class="w-[35%] flex justify-center items-center">
-    <img src="./src/image/web-source/second-index.jpg" alt="" class="rounded-xl" width="80%">
+  <div class="w-[35%] flex justify-end">
+    <img src="./src/image/web-source/second-index2.jpg" alt="" class="rounded-xl" width="72%">
   </div>
 </div>
+
+<!-- THIRD CONTENT -->
+<div class="w-full py-10 bg-slate-800 bg-opacity-60 ">
+  <div class="flex justify-center gap-x-10 items-center whitespace-nowrap">
+    <img src="./src/image/web-source/third-content/g-force/2.jpg" alt="" class="rounded-xl inline-block" width="18%">
+    <img src="./src/image/web-source/third-content/g-force/5.jpg" alt="" class="rounded-xl inline-block" width="18%">
+    <img src="./src/image/web-source/third-content/g-force/4.jpg" alt="" class="rounded-xl inline-block" width="18%">
+    <img src="./src/image/web-source/third-content/g-force/1.jpg" alt="" class="rounded-xl inline-block" width="18%">
+    <img src="./src/image/web-source/third-content/g-force/3.jpg" alt="" class="rounded-xl inline-block" width="18%">
+  </div>
+</div>
+
 
 
 
