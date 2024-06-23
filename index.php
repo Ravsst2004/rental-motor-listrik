@@ -74,11 +74,16 @@
 <!-- THIRD CONTENT -->
 <div class="w-full py-10 bg-slate-800 bg-opacity-60 ">
   <div class="flex justify-center gap-x-10 items-center whitespace-nowrap">
-    <img src="./src/image/web-source/third-content/g-force/2.jpg" alt="" class="rounded-xl inline-block" width="18%">
-    <img src="./src/image/web-source/third-content/g-force/5.jpg" alt="" class="rounded-xl inline-block" width="18%">
-    <img src="./src/image/web-source/third-content/g-force/4.jpg" alt="" class="rounded-xl inline-block" width="18%">
-    <img src="./src/image/web-source/third-content/g-force/1.jpg" alt="" class="rounded-xl inline-block" width="18%">
-    <img src="./src/image/web-source/third-content/g-force/3.jpg" alt="" class="rounded-xl inline-block" width="18%">
+    <img src="./src/image/web-source/third-content/g-force/2.jpg" alt=""
+      class="rounded-xl inline-block cursor-pointer transition-all duration-300 hover:scale-110" width="18%">
+    <img src="./src/image/web-source/third-content/g-force/5.jpg" alt=""
+      class="rounded-xl inline-block cursor-pointer transition-all duration-300 hover:scale-110" width="18%">
+    <img src="./src/image/web-source/third-content/g-force/4.jpg" alt=""
+      class="rounded-xl inline-block cursor-pointer transition-all duration-300 hover:scale-110" width="18%">
+    <img src="./src/image/web-source/third-content/g-force/1.jpg" alt=""
+      class="rounded-xl inline-block cursor-pointer transition-all duration-300 hover:scale-110" width="18%">
+    <img src="./src/image/web-source/third-content/g-force/3.jpg" alt=""
+      class="rounded-xl inline-block cursor-pointer transition-all duration-300 hover:scale-110" width="18%">
   </div>
 </div>
 
