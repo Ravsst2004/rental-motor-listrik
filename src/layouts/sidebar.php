@@ -107,7 +107,7 @@ if (isset($_POST['logout'])) {
           <span class="flex-1 ms-3 whitespace-nowrap">Users</span>
         </a>
       </li>
-      <li>
+      <!-- <li>
         <a href="qr-scan-motorcycle.php" class="flex items-center p-2 rounded-lg text-white hover:bg-blue-900 group">
           <svg
             class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -121,7 +121,7 @@ if (isset($_POST['logout'])) {
 
           <span class="flex-1 ms-3 whitespace-nowrap">Scan QR</span>
         </a>
-      </li>
+      </li> -->
       <li>
         <a href="rented-motorcycle.php" class="flex items-center p-2 rounded-lg text-white hover:bg-blue-900 group">
           <svg
