@@ -6,20 +6,59 @@ $user_id = $_SESSION['user_id'];
 $user = $User->getUsersBId($user_id)[0];
 // var_dump($user);
 
+$success = false;
+$error = false;
+$text = "";
 if (isset($_POST['edit_user'])) {
-  if ($User->editUser($_POST)) {
-    echo "<script>
-      alert('Success to updated');
-      window.location.href = 'profile.php';
-    </script>";
+  $result = $User->editUser($_POST);
+  if ($result === true) {
+    $text = "Success to updated";
+    $success = true;
   } else {
-    echo "<script>
-      alert('Failed to update');
-      window.location.href = 'profile.php';
-    </script>";
+    $error = $result;
   }
 }
 ?>
+
+<!-- Alert -->
+<div class="flex justify-center items-center mx-auto">
+  <?php if ($error): ?>
+    <div id="alert" class="absolute w-[30rem] top-96 p-4 mb-4 text-red-800 border border-red-300 rounded-lg bg-red-50"
+      role="alert">
+      <div class="flex items-center">
+        <h3 class="text-lg font-medium">Error</h3>
+      </div>
+      <div class="mt-2 mb-4 text-sm">
+        <?= $error ?>
+      </div>
+      <div class="flex">
+        <button type="button" id="alert-close"
+          class="text-red-800 bg-transparent border border-red-800 hover:bg-red-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center"
+          data-dismiss-target="#alert-additional-content-3" aria-label="Close">
+          Close
+        </button>
+      </div>
+    </div>
+  <?php elseif ($success): ?>
+    <div id="alert"
+      class="absolute w-[30rem] top-96 p-4 mb-4 text-green-800 border border-green-300 rounded-lg bg-green-50"
+      role="alert">
+      <div class="flex items-center">
+        <h3 class="text-lg font-medium">success</h3>
+      </div>
+      <div class="mt-2 mb-4 text-sm">
+        <h1><?= $text ?></h1>
+      </div>
+      <div class="flex">
+        <button type="button" id="alert-close"
+          class="text-green-800 bg-transparent border border-green-800 hover:bg-green-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center"
+          data-dismiss-target="#alert-additional-content-3" aria-label="Close">
+          Close
+        </button>
+      </div>
+    </div>
+  <?php endif; ?>
+</div>
 
 <div class="py-10 pt-20">
   <div class=" p-8 bg-white shadow-2xl rounded-lg max-w-6xl mx-auto">
@@ -141,7 +180,7 @@ if (isset($_POST['edit_user'])) {
   const alertClose = document.getElementById("alert-close");
   alertClose.addEventListener("click", function () {
     document.getElementById("alert").classList.add("hidden");
-    window.location.href = "motor.php";
+    window.location.href = "profile.php";
   })
 </script>
 

@@ -10,17 +10,52 @@ class User extends Database
 
   public function editUser(array $data)
   {
+
+    // Validasi semua Input
+    if (empty($data['fullname']) || empty($data['email']) || empty($data['phone']) || empty($data['address'])) {
+      return 'All fields are required';
+    }
+
     $id = mysqli_real_escape_string($this->conn, $data['user_id']);
     $fullname = mysqli_real_escape_string($this->conn, $data['fullname']);
     $email = mysqli_real_escape_string($this->conn, $data['email']);
     $phone = mysqli_real_escape_string($this->conn, $data['phone']);
     $address = mysqli_real_escape_string($this->conn, $data['address']);
 
-    $sql = "UPDATE $this->tb_name SET fullname = '$fullname', address = '$address', phone = '$phone' WHERE user_id = '$id'";
+    // Validasi Email
+    if (empty($email))
+      return 'Email cannot be empty';
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+      return 'Invalid email format';
+    $sql = "SELECT * FROM $this->tb_name WHERE email = '$email' AND user_id != '$id'";
+    $result = $this->conn->query($sql);
+    if ($result->num_rows > 0)
+      return 'Email already exists';
+
+    // Validasi Fullname
+    if (empty($fullname))
+      return 'Fullname cannot be empty';
+    if (strlen($fullname) > 256)
+      return 'Fullname must be less than 256 characters';
+
+    // Validasi Phone
+    if (empty($phone))
+      return 'Phone number cannot be empty';
+    if (strlen($phone) < 10 || strlen($phone) > 20)
+      return 'Phone number must be between 10 and 20 characters';
+    if (strpos($phone, ' ') !== false)
+      return 'Phone number must not contain spaces';
+    if (!is_numeric($phone))
+      return 'Phone number must be a number';
+    $sql = "SELECT * FROM $this->tb_name WHERE phone = '$phone' AND user_id != '$id'";
+    $result = $this->conn->query($sql);
+    if ($result->num_rows > 0)
+      return 'Phone number already exists';
+
+
+    $sql = "UPDATE $this->tb_name SET email = '$email', fullname = '$fullname', address = '$address', phone = '$phone' WHERE user_id = '$id'";
     if ($this->conn->query($sql)) {
       return true;
-    } else {
-      return false;
     }
   }
 
