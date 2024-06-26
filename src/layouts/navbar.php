@@ -82,7 +82,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
           </li>
         <?php else: ?>
           <li>
-            <a href="login.php" class="text-xl bg-slate-800 text-slate-50 font-semibold border-2 border-slate-800 px-2 rounded-md hover:bg-slate-50
+            <a href="login.php" class="text-md bg-slate-800 text-slate-50 font-semibold border-2 border-slate-800 px-2 py-[2px] rounded-md hover:bg-slate-50
                                         hover:text-slate-800">Login</a>
           </li>
         <?php endif; ?>
