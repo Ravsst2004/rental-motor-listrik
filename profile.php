@@ -2,8 +2,17 @@
 require_once 'src/layouts/header.php';
 require_once 'app/User.php';
 
+$user = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
+if ($user == null) {
+  header("Location: /rental-motor-listrik/");
+  exit();
+}
+
 $user_id = $_SESSION['user_id'];
 $user = $User->getUsersBId($user_id)[0];
+
+
 // var_dump($user);
 
 $success = false;

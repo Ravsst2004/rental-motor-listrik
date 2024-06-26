@@ -1,4 +1,6 @@
 <?php
+require_once 'app/Roles.php';
+
 function getTitle()
 {
   date_default_timezone_set('Asia/Makassar');
@@ -24,6 +26,7 @@ function getTitle()
 
   return isset($titles[$current_url]) ? $titles[$current_url] : 'Page Not Found';
 }
+
 ?>
 
 <!DOCTYPE html>

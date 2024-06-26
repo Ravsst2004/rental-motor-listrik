@@ -2,6 +2,14 @@
 require_once "src/layouts/header.php";
 require_once "app/Rental.php";
 
+
+$user = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
+if ($user == null) {
+  header("Location: /rental-motor-listrik/");
+  exit();
+}
+
 $user_id = $_SESSION['user_id'];
 $rentals = $Rental->getRentedMotorcycleByCustomer($user_id);
 

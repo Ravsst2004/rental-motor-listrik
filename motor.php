@@ -35,7 +35,10 @@ if (isset($_POST["edit_motorcycle"])) {
   }
 }
 
-
+function formatRupiah($number)
+{
+  return 'Rp ' . number_format($number, 0, ',', '.');
+}
 
 
 // pagination
@@ -204,7 +207,7 @@ $motorcycles = $Motorcycle->getMotorcyclesWithPagination($motorcycles_per_page, 
                     <div class="text-sm text-gray-900"><?= $motorcycle['year'] ?></div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900"><?= $motorcycle['hourly_rental_price'] ?></div>
+                    <div class="text-sm text-gray-900"><?= formatRupiah($motorcycle['hourly_rental_price']) ?></div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="text-sm text-gray-900"><?= $motorcycle['status'] == 1 ? 'Tersedia' : 'Tidak Tersedia' ?>
