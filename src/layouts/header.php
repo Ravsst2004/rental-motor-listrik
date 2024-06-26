@@ -2,7 +2,7 @@
 function getTitle()
 {
   date_default_timezone_set('Asia/Makassar');
-  // Array of titles mapped to their respective URLs
+
   $titles = [
     '/rental-motor-listrik' . '/' => 'Home',
     '/rental-motor-listrik' . '/index.php' => 'Home',
@@ -20,10 +20,8 @@ function getTitle()
     '/rental-motor-listrik/rented-motorcycle.php' => 'Admin',
   ];
 
-  // Get the current request URI
   $current_url = $_SERVER['REQUEST_URI'];
 
-  // Return the title if the current URL exists in the array, otherwise return 'Page Not Found'
   return isset($titles[$current_url]) ? $titles[$current_url] : 'Page Not Found';
 }
 ?>
