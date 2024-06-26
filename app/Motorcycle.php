@@ -160,7 +160,7 @@ OFFSET
 
     // Cek apakah ada gambar yang diupload
     if (isset($_FILES['edit_image']) && $_FILES['edit_image']['error'] == UPLOAD_ERR_OK) {
-      $query = "SELECT image_url FROM $this->tb_name WHERE motorcycle_id = " . mysqli_real_escape_string($this->conn, $data['edit_motorcycle_id']);
+      $query = "SELECT image_url FROM $this->tb_name WHERE motorcycle_id = " . $data['edit_motorcycle_id'];
       $result = $this->conn->query($query);
 
       if ($result && $result->num_rows > 0) {
@@ -195,11 +195,11 @@ OFFSET
         return 'Failed to upload image.';
       }
     } else {
-      if (isset($data['edit_image'])) {
-        $image = mysqli_real_escape_string($this->conn, $data['edit_image']);
-      } else {
-        return 'No image selected.';
-      }
+      $sql = "SELECT image_url FROM $this->tb_name WHERE motorcycle_id = " . $data['edit_motorcycle_id'];
+      $result = $this->conn->query($sql);
+      if ($result && $result->num_rows > 0) {
+        $image = $result->fetch_assoc()['image_url'];
+      } 
     }
 
     // Escaping semua inputan

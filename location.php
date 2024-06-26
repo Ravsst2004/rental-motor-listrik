@@ -201,7 +201,7 @@ $locations = $Location->getlocationsWithPagination($locations_per_page, $offset)
 
 <!-- Delete Confirm  -->
 <div id="customConfirm" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
-  <div class="relative top-1/4 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+  <div class="relative top-1/4 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white mt-20">
     <div class="mt-3 text-center">
       <h3 class="text-lg leading-6 font-medium text-gray-900">Are you sure?</h3>
       <div class="mt-2 px-7 py-3">
