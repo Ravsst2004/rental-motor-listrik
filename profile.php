@@ -60,30 +60,57 @@ if (isset($_POST['edit_user'])) {
   <?php endif; ?>
 </div>
 
-<div class="py-10 pt-20">
-  <div class=" p-8 bg-white shadow-2xl rounded-lg max-w-6xl mx-auto">
-    <div class="text-center">
-      <h1 class="text-4xl font-bold text-gray-900"><?= $user['username'] ?></h1>
-      <h2 class="text-2xl text-gray-700 mt-2"><?= $user['fullname'] ?></h2>
-    </div>
-    <div class="mt-8">
-      <h3 class="text-lg font-medium text-gray-700">Email</h3>
-      <p class="text-gray-600"><?= $user['email'] ?></p>
-    </div>
-    <div class="mt-4">
-      <h3 class="text-lg font-medium text-gray-700">Phone</h3>
-      <p class="text-gray-600"><?= $user['phone'] ?></p>
-    </div>
-    <div class="mt-4">
-      <h3 class="text-lg font-medium text-gray-700">Address</h3>
-      <p class="text-gray-600"><?= $user['address'] == null ? '-' : $user['address'] ?></p>
-    </div>
-    <button class="btnModalEditLocation bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-5 mt-6 rounded"
-      data-user-id="<?= $user['user_id'] ?>" data-user-fullname="<?= $user['fullname'] ?>"
-      data-user-email="<?= $user['email'] ?>" data-user-phone="<?= $user['phone'] ?>"
-      data-user-address="<?= $user['address'] ?>">
-      Edit
-    </button>
+<div class="bg-white mt-28 overflow-hidden shadow rounded-lg border max-w-5xl mx-auto">
+  <div class="px-4 py-5 sm:px-6">
+    <h3 class="text-lg leading-6 font-semibold text-gray-900">
+      <?= $user['username'] ?>
+    </h3>
+  </div>
+  <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+    <dl class="sm:divide-y sm:divide-gray-200">
+      <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">
+          Full name
+        </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <?= $user['fullname'] ?>
+        </dd>
+      </div>
+      <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">
+          Email address
+        </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <?= $user['email'] ?>
+        </dd>
+      </div>
+      <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">
+          Phone number
+        </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <?= $user['phone'] ?>
+        </dd>
+      </div>
+      <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">
+          Address
+        </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <?= $user['address'] == null ? '-' : $user['address'] ?>
+        </dd>
+      </div>
+      <div class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+        <button
+          class="btnModalEditLocation w-fit m-5 bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-5 mt-6 rounded"
+          data-user-id="<?= $user['user_id'] ?>" data-user-fullname="<?= $user['fullname'] ?>"
+          data-user-email="<?= $user['email'] ?>" data-user-phone="<?= $user['phone'] ?>"
+          data-user-address="<?= $user['address'] ?>">
+          Edit
+        </button>
+      </div>
+
+    </dl>
   </div>
 </div>
 
